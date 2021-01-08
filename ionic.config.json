@@ -1,0 +1,7 @@
+{
+  "name": "letmehelp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
