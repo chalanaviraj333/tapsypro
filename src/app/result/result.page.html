@@ -1,0 +1,79 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/year"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Results</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card *ngFor="let compitableremote of compitableremotes">
+    <img src="./assets/img/remotes/{{compitableremote.icon}}" width="320" height="320"/>
+        <ion-card-header>
+          <ion-card-title>Remote <img src="./assets/img/icons/{{remotealerticon}}" width="30" height="30"/></ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            Tapsy Code: {{compitableremote.tc}}
+            <br>
+            <b> Box Number: {{compitableremote.box}} </b>
+            <br>
+            Blade: {{compitableremote.blade}}
+            <br>
+            Chip: {{chipmfkmachine.chip}}
+            <br>
+            Programming tool: {{chipmfkmachine.progmachine}}
+            <br>
+            Notes:
+            <br>
+            <ion-text color="danger">
+              {{compitableremote.notes}}
+            </ion-text>
+        </ion-card-content>
+  </ion-card>
+
+  <!-- <ion-card>
+    <img src="./assets/img/mfk/{{compitablemfk.icon}}" width="320" height="320"/>
+        <ion-card-header>
+          <ion-card-title>MFK <img src="./assets/img/icons/{{mfkalerticon}}" width="30" height="30"/></ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          Tapsy Code: {{compitablemfk.tc}}
+          <br>
+          <b> Box Number: {{compitablemfk.box}} </b>
+          <br>
+          Blade: {{compitablemfk.blade}}
+          <br>
+          Chip: {{chipmfkmachine.chip}}
+          <br>
+          Programming tool: {{chipmfkmachine.progmachine}}
+          <br>
+          Notes:
+          <br>
+          <ion-text color="danger">
+            {{compitablemfk.notes}}
+          </ion-text>
+        </ion-card-content>
+  </ion-card> -->
+
+  <!-- <ion-card>
+    <img src="./assets/img/shells/{{compitableshell.icon}}" width="320" height="320"/>
+        <ion-card-header>
+          <ion-card-title>Shell <img src="./assets/img/icons/{{shellalerticon}}" width="30" height="30"/></ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          Tapsy Code: {{compitableshell.tc}}
+          <br>
+          <b> Box Number: {{compitableshell.box}} </b>
+          <br>
+          Blade: {{compitableshell.blade}}
+          <br>
+          Notes:
+          <br>
+          <ion-text color="danger">
+            {{compitablemfk.notes}}
+          </ion-text>
+        </ion-card-content>
+  </ion-card> -->
+
+</ion-content>

@@ -1,0 +1,34 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{brand}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- <ion-searchbar showCancelButton="never"></ion-searchbar> -->
+
+  <ion-card *ngFor="let model of models">
+    <ion-card-content>
+      <ion-fab vertical="top" horizontal="end" slot="fixed">
+        <ion-fab-button size="small" color="light">
+          <img src="./assets/img/icons/{{model.carmodel.type}}.png"/>
+        </ion-fab-button>
+      </ion-fab>
+
+      <ion-row no-padding>
+        <ion-col col-3 text-center>
+          <ion-card-subtitle color="medium">{{model.carmodel.startyear}}-{{model.carmodel.endyear}}</ion-card-subtitle>
+          <ion-card-title>{{model.carmodel.model}}</ion-card-title>
+          <ion-button fill="outline" shape="round" (click)="onClick(x = model.carmodel.model, y = model.carmodel.range, type = model.carmodel.type, startyear = model.carmodel.startyear, endyear = model.carmodel.endyear)">Select</ion-button>
+        </ion-col>
+        <ion-col>
+          <!-- <img src="./assets/img/models/{{model.carmodel.icon}}" width="150" height="150"/> -->
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

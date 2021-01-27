@@ -1,0 +1,18 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/model"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{car.model}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-card>
+    <ion-item *ngFor="let year of years" (click)="onSelect(year)" class="ion-activated">
+      <ion-label>{{year}}</ion-label>
+    </ion-item>
+  </ion-card>
+
+</ion-content>

@@ -1,0 +1,38 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>REMOTE</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card>
+    <img src="./assets/img/remotes/{{selectedremote.icon}}" width="320" height="320" />
+    <ion-card-header>
+      <ion-card-title>Box No: {{selectedremote.box}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <b>Tapsy Code: </b>{{selectedremote.tc}}
+      <br>
+       <b>Blade: </b>{{selectedremote.blade}}
+      <br>
+      <b>Inbuild Chip: </b>{{selectedremote.chip}}
+      <br>
+      <b>Compitable with: </b> 
+      <br>
+      <ul *ngFor="let remote of selectedremote.compatiblewith">
+        <li><ion-text color="secondary">{{remote}}</ion-text></li>
+      </ul>
+      <br>
+      <b>Notes: </b>
+      <br>
+      <ion-text color="danger">
+        {{selectedremote.notes}}
+      </ion-text>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
