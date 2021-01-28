@@ -2,6 +2,14 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavparamService } from '../navparam.service';
 import { Router } from '@angular/router';
 import { IonSearchbar } from '@ionic/angular';
+import { map, tap } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+
+
+interface Brand {
+  name: string;
+  icon: string;
+}
 
 @Component({
   selector: 'app-tab1',
@@ -12,13 +20,25 @@ export class Tab1Page implements OnInit{
 
   @ViewChild('search', { static: false }) search: IonSearchbar;
 
-  public brands: Array<Object> = [];
+  public brands: Array<Brand> = [];
   private searchedItem: any;
 
   constructor(
     private navParamService: NavparamService,
-    private router: Router
+    private router: Router, private http: HttpClient
   ) {
+
+    // this.http.get<{ [key: string]: Brand}>('https://tapsystock-a6450-default-rtdb.firebaseio.com/car-brand.json')
+    // .subscribe(resData => {
+    //   for (const key in resData) {
+    //       this.brands.push(resData[key]);
+    //   }
+
+    //   this.brands.sort((a, b) => (a.name > b.name) ? 1 : -1)
+    // });
+    
+    
+    
 
     this.brands= [
       {name:"ALFA ROMEO", icon:"alfaromeo.png"},
@@ -83,7 +103,7 @@ export class Tab1Page implements OnInit{
     
     if (val && val.trim() != '') {
       this.searchedItem = this.searchedItem.filter((item: any) => {
-        return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
+        return (item.brand.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
     }
   }

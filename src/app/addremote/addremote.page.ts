@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
@@ -8,7 +9,7 @@ import { NgForm } from '@angular/forms';
 })
 export class AddremotePage implements OnInit {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
   }
@@ -23,7 +24,12 @@ export class AddremotePage implements OnInit {
 
   onSubmit(form: NgForm) 
   {
-    console.log(form);
+
+    return this.http.post('https://tapsystock-a6450-default-rtdb.firebaseio.com/car-brand.json', {name:form.value.carbrand, icon:form.value.iconname}).subscribe(
+      resData => {
+        console.log(resData);
+      }
+    );
   }
 
 }

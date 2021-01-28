@@ -11,14 +11,14 @@
   <form #f="ngForm" (ngSubmit)="onSubmit(f)">
     <ion-card>
     <ion-item>
-      <ion-label color="danger" position="stacked">Tapsy Code</ion-label>
-      <ion-input type="text" ngModel name="tapsyCode" placeholder="NLK-FORD-433.2" required></ion-input>
+      <ion-label color="danger" position="stacked">Car Brand</ion-label>
+      <ion-input type="text" ngModel name="carbrand" placeholder="NLK-FORD-433.2" required></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label color="danger" position="stacked">Box Number</ion-label>
-      <ion-input placeholder="110" type="number" ngModel name="boxNumber" required></ion-input>
+      <ion-label color="danger" position="stacked">Icon Name</ion-label>
+      <ion-input placeholder="110" type="text" ngModel name="iconname" required></ion-input>
     </ion-item>
-    <ion-item>
+    <!-- <ion-item>
       <ion-label color="secondary" position="stacked">Blade</ion-label>
       <ion-input placeholder="HU100" type="text" ngModel name="blade"></ion-input>
     </ion-item>
@@ -32,9 +32,9 @@
     </ion-item>
     <ion-item>
       <ion-label color="danger" position="stacked">Upload a photo</ion-label>
-      <!-- <ion-button class= "selectbuttons" fill="outline" shape="round" (click)="onClick(x = remote.remotenumber)">Select</ion-button> -->
-      <input type="file" name="inputFile" (change)="chooseFile($event)" class="imageuploader" required>
-    </ion-item>
+      <ion-button class= "selectbuttons" fill="outline" shape="round" (click)="onClick(x = remote.remotenumber)">Select</ion-button> -->
+      <!-- <input type="file" name="inputFile" (change)="chooseFile($event)" class="imageuploader" required>
+    </ion-item> -->
     <br>
     <ion-button class="doneButton" type="submit" (click)="saveremote()" expand="block">DONE</ion-button>
     </ion-card>

@@ -70,7 +70,7 @@ export class ModelPage implements OnInit {
 
     { brand: 'DODGE', model: 'Journey', startyear: 2008, endyear: 2016 },
 
-    { brand: 'DODGE', model: 'Ram', startyear: 2008, endyear: 2012 },
+    { brand: 'DODGE', model: 'Ram', startyear: 2008, endyear: 2018 },
 
     { brand: 'DODGE', model: 'Magnum', startyear: 2008, endyear: 2008 },
 
@@ -194,7 +194,7 @@ export class ModelPage implements OnInit {
     
     { brand: 'HOLDEN', model: 'Cascada', startyear: 2013, endyear: 2013 },
     
-    { brand: 'HOLDEN', model: 'Cruze', startyear: 2008, endyear: 2015 },
+    { brand: 'HOLDEN', model: 'Cruze', startyear: 2008, endyear: 2016 },
 
     { brand: 'HOLDEN', model: 'Trax', startyear: 2012, endyear: 2015 },
 
@@ -534,20 +534,19 @@ export class ModelPage implements OnInit {
 
     for (let carmodel of this.carmodels) {
       if (carmodel.brand == this.brand) {
-        this.models.push({ carmodel });
+        this.models.push({brand:carmodel.brand, endyear:carmodel.endyear,model:carmodel.model,startyear:carmodel.startyear});
       }
       else {
 
       }
     }
+    this.models.sort((a, b) => (a.model > b.model) ? 1 : -1)
   }
 
   ngOnInit() {
   }
 
   onClick(x, y, type, startyear, endyear) {
-
-    // this.http.post('https://tapsystock-a6450-default-rtdb.firebaseio.com/test.json', {x,y});
 
 
     let car = { brand: this.brand, model: x, type: type, startyear: startyear, endyear: endyear };
@@ -565,29 +564,3 @@ export class ModelPage implements OnInit {
   }
 
 }
-
-    // BMW Models 
-    // BMW Sub Models
-    // {brand:"BMW", name:"Series 1 (E87)", icon:"bmws1.png" ,type:"bladed", range:"2004 - 2011", startyear:2004, endyear:2011},
-    // {brand:"BMW", name:"Series 1 (E81/E82/E88)", icon:"WW.png" ,type:"", range:"2007 - 2012", startyear:2004, endyear:2011},
-    // {brand:"BMW", name:"Series 3 (E46)", icon:"WW.png" ,type:"bladed", range:"1998 - 2007", startyear:1998, endyear:2007},
-    // {brand:"BMW", name:"Series 3 (E90/E91)", icon:"WW.png" ,type:"bladed", range:"2005 - 2012", startyear:1998, endyear:2007},
-    // {brand:"BMW", name:"Series 3 (E92/E93)", icon:"WW.png" ,type:"", range:"2007 - 2011", startyear:1998, endyear:2007},
-    // {brand:"BMW", name:"Series 5 (E60/E61)", icon:"WW.png" ,type:"bladed", range:"1997 - 2010", startyear:1997, endyear:2011},
-    // {brand:"BMW", name:"Series 6 (E63/E64)", icon:"ww.png" ,type:"bladed", range:"2000 - 2012", startyear:2000, endyear:2010},
-    // {brand:"BMW", name:"Series 7", icon:"ww.png" ,type:"bladed", range:"1996 - 2002", startyear:1996, endyear:2002},
-    // {brand:"BMW", name:"Series X (E70/X5)", icon:"WW.png" ,type:"bladed", range:"2006 - 2013", startyear:1998, endyear:2007},
-    // {brand:"BMW", name:"Series X (E71/X6/E72/X6H)", icon:"WW.png" ,type:"bladed", range:"2008 - 2012", startyear:1998, endyear:2007},
-    // {brand:"BMW", name:"Z3", icon:"ww.png" ,type:"bladed", range:"2001 - 2002", startyear:2001, endyear:2002},
-    // {brand:"BMW", name:"Z Series", icon:"ww.png" ,type:"bladed", range:"1996 - 2002", startyear:2001, endyear:2002},
-
-
-    // {brand:"ALFA ROMEO", name:"147", icon:"147.png" ,type:"", range:"All Models", years:[]},
-    // {brand:"ALFA ROMEO", name:"156", icon:"156.png" ,type:"", range:"All Models", years:[]},
-    // {brand:"ALFA ROMEO", name:"159", icon:"159.png" ,type:"bladed", range:"2006 - 2012", years:[2006,2007,2008,2009,2010,2011,2012]},
-    // {brand:"ALFA ROMEO", name:"166", icon:"166.png" ,type:"", range:"All Models", years:[]},
-    // {brand:"ALFA ROMEO", name:"Brera", icon:"brera.png" ,type:"bladed", range:"2006 - 2011", years:[2006,2007,2008,2009,2010,2011]},
-    // {brand:"ALFA ROMEO", name:"Giulia", icon:"giulia.png" ,type:"prox", range:"2015 ->", years:[2015,2016,2017,2018,2019,2020]},
-    // {brand:"ALFA ROMEO", name:"Spider 3", icon:"spider3.png" ,type:"bladed", range:"2006 - 2011", years:[2006,2007,2008,2009,2010,2011]},
-    // {brand:"ALFA ROMEO", name:"Stelvio", icon:"stelvio.png" ,type:"prox", range:"2016 ->", years:[2016,2017,2018,2019,2020]},
-    // {brand:"ALFA ROMEO", name:"GT", icon:"gt.png" ,type:"bladed", range:"2004 - 2010", years:[2004,2005,2006,2007,2008,2009,2010]},

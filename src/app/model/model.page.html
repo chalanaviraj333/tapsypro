@@ -14,15 +14,15 @@
     <ion-card-content>
       <ion-fab vertical="top" horizontal="end" slot="fixed">
         <ion-fab-button size="small" color="light">
-          <img src="./assets/img/icons/{{model.carmodel.type}}.png"/>
+          <!-- <img src="./assets/img/icons/{{model.carmodel.type}}.png"/> -->
         </ion-fab-button>
       </ion-fab>
 
       <ion-row no-padding>
         <ion-col col-3 text-center>
-          <ion-card-subtitle color="medium">{{model.carmodel.startyear}}-{{model.carmodel.endyear}}</ion-card-subtitle>
-          <ion-card-title>{{model.carmodel.model}}</ion-card-title>
-          <ion-button fill="outline" shape="round" (click)="onClick(x = model.carmodel.model, y = model.carmodel.range, type = model.carmodel.type, startyear = model.carmodel.startyear, endyear = model.carmodel.endyear)">Select</ion-button>
+          <ion-card-subtitle color="medium">{{model.startyear}}-{{model.endyear}}</ion-card-subtitle>
+          <ion-card-title>{{model.model}}</ion-card-title>
+          <ion-button fill="outline" shape="round" (click)="onClick(x = model.model, y = model.range, type = model.type, startyear = model.startyear, endyear = model.endyear)">Select</ion-button>
         </ion-col>
         <ion-col>
           <!-- <img src="./assets/img/models/{{model.carmodel.icon}}" width="150" height="150"/> -->
