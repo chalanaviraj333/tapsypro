@@ -24,7 +24,7 @@
       <b>Compitable with: </b> 
       <br>
       <ul *ngFor="let remote of selectedremote.compatiblewith">
-        <li><ion-text color="secondary">{{remote}}</ion-text></li>
+        <li><ion-text color="secondary">{{remote.brand}} {{remote.model}} {{remote.startyear}} - {{remote.endyear}}</ion-text></li>
       </ul>
       <br>
       <b>Notes: </b>

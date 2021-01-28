@@ -1,17 +1,11 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Car Brands
-    </ion-title>
+  <ion-toolbar color="primary">
+    <ion-title>Car Brands</ion-title>
   </ion-toolbar>
+  
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Search by Car</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
   <ion-searchbar #search debounce="500" (ionChange)="_ionChange($event)" showCancelButton="never"></ion-searchbar>
 

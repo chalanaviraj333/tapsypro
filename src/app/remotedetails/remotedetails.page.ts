@@ -13,7 +13,7 @@ export class RemotedetailsPage implements OnInit {
   constructor(private navParamService: NavparamService) { 
 
     this.selectedremote = this.navParamService.getNavData();
-
+    console.log(this.selectedremote);
     
   }
 
