@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavparamService } from '../navparam.service';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-model',
@@ -187,7 +188,7 @@ export class ModelPage implements OnInit {
     { brand: 'HOLDEN', model: 'Colorado', startyear: 2018, endyear: 2018 },
 
     { brand: 'HOLDEN', model: 'Commodore VE', startyear: 2006, endyear: 2013 },
-    { brand: 'HOLDEN', model: 'Commodore VF', startyear: 2014, endyear: 2015 },
+    { brand: 'HOLDEN', model: 'Commodore VF', startyear: 2014, endyear: 2017 },
 
     { brand: 'HOLDEN', model: 'Spark', startyear: 2015, endyear: 2015 },
     
@@ -526,7 +527,7 @@ export class ModelPage implements OnInit {
   ];
 
   constructor(
-    private navParamService: NavparamService, private router: Router
+    private navParamService: NavparamService, private router: Router, private http: HttpClient
   ) {
 
     this.brand = this.navParamService.getNavData();
@@ -545,6 +546,10 @@ export class ModelPage implements OnInit {
   }
 
   onClick(x, y, type, startyear, endyear) {
+
+    // this.http.post('https://tapsystock-a6450-default-rtdb.firebaseio.com/test.json', {x,y});
+
+
     let car = { brand: this.brand, model: x, type: type, startyear: startyear, endyear: endyear };
 
     if (y == "All Models") {
