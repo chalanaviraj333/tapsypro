@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
+
 @Component({
   selector: 'app-addremote',
   templateUrl: './addremote.page.html',
@@ -14,14 +15,7 @@ export class AddremotePage implements OnInit {
   ngOnInit() {
   }
 
-  saveremote() {
-  }
-
-  chooseFile($event) 
-  {
-
-  }
-
+ 
   onSubmit(form: NgForm) 
   {
 
