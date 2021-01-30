@@ -248,7 +248,7 @@ export class Tab2Page {
     //   }
     // );
     
-    this.router.navigateByUrl('addremote');
+    this.router.navigateByUrl('addmodel');
   }
 }
 

@@ -2,9 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavparamService } from '../navparam.service';
 import { Router } from '@angular/router';
 import { IonSearchbar } from '@ionic/angular';
-import { map, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
+import firebase from 'firebase';
+
+import { environment } from '../../environments/environment';
 
 interface Brand {
   name: string;
@@ -28,60 +30,19 @@ export class Tab1Page implements OnInit{
     private router: Router, private http: HttpClient
   ) {
 
-    // this.http.get<{ [key: string]: Brand}>('https://tapsystock-a6450-default-rtdb.firebaseio.com/car-brand.json')
-    // .subscribe(resData => {
-    //   for (const key in resData) {
-    //       this.brands.push(resData[key]);
-    //   }
+    firebase.initializeApp(environment.firebase);
 
-    //   this.brands.sort((a, b) => (a.name > b.name) ? 1 : -1)
-    // });
-    
-    
-    
-
-    this.brands= [
-      {name:"ALFA ROMEO", icon:"alfaromeo.png"},
-      {name:"AUDI", icon:"audi.png"},
-      {name:"BMW", icon:"bmw.png"},
-      {name:"CHERY", icon:"chery.png"},
-      {name:"CHRYSLER", icon:"chrysler.png"},
-      {name:"CITROEN", icon:"citroen.png"},
-      {name:"DAEWOO", icon:"daewoo.png"},
-      {name:"DAIHATSU", icon:"daihatsu.png"},
-      {name:"DODGE", icon:"dodge.png"},
-      {name:"FIAT", icon:"fiat.png"},
-      {name:"FORD", icon:"ford.png"},
-      {name:"HOLDEN", icon:"holden.png"},
-      {name:"GREAT WALL", icon:"greatwall.png"},
-      {name:"HONDA", icon:"honda.png"},
-      {name:"HUMMER", icon:"hummer.png"},
-      {name:"HYUNDAI", icon:"hyundai.png"},
-      {name:"ISUZU", icon:"isuzu.png"},
-      {name:"JAGUAR", icon:"jaguar.png"},
-      {name:"JEEP", icon:"jeep.png"},
-      {name:"KIA", icon:"kia.png"},
-      {name:"LAND ROVER", icon:"landrover.png"},
-      {name:"RANGE ROVER", icon:"landrover.png"},
-      {name:"LDV", icon:"ldv.png"},
-      {name:"LEXUS", icon:"lexus.png"},
-      {name:"MAZDA", icon:"mazda.png"},
-      {name:"BENZ", icon:"benz.png"},
-      {name:"MINI", icon:"mini.png"},
-      {name:"NISSAN", icon:"nissan.png"},
-      {name:"OPEL", icon:"opel.png"},
-      {name:"PEUGEOT", icon:"peugeot.png"},
-      {name:"PROTON", icon:"proton.png"},
-      {name:"RENAULT", icon:"renault.png"},
-      {name:"SAAB", icon:"saab.png"},
-      {name:"SKODA", icon:"skoda.png"},
-      {name:"SUBARU", icon:"subaru.png"},
-      {name:"SUZUKI", icon:"suzuki.png"},
-      {name:"TOYOTA", icon:"toyota.png"},
-      {name:"VOLKS WAGEN", icon:"volkswagen.png"},
-      {name:"VOLVO", icon:"volvo.png"},
-      
-    ];
+    this.http.get<{ [key: string]: Brand}>('https://tapsystock-a6450-default-rtdb.firebaseio.com/car-brand.json')
+    .subscribe(resData => {
+      for (const key in resData) {
+      const iconname = (resData[key].icon);
+      firebase.storage().ref().child('images/' + iconname).getDownloadURL()
+      .then(response => {
+        this.brands.push({name:resData[key].name, icon: response})
+        this.brands.sort((a, b) => (a.name > b.name) ? 1 : -1)})
+      .catch(error => console.log('error', error))
+      }
+    });
 
     this.searchedItem = this.brands;
        
@@ -103,7 +64,7 @@ export class Tab1Page implements OnInit{
     
     if (val && val.trim() != '') {
       this.searchedItem = this.searchedItem.filter((item: any) => {
-        return (item.brand.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
+        return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
     }
   }

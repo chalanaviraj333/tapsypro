@@ -2,7 +2,7 @@
   <ion-toolbar color="primary">
     <ion-title>Car Brands</ion-title>
   </ion-toolbar>
-  
+
 </ion-header>
 
 <ion-content [fullscreen]="true">
@@ -10,18 +10,20 @@
   <ion-searchbar #search debounce="500" (ionChange)="_ionChange($event)" showCancelButton="never"></ion-searchbar>
 
   <ion-card *ngFor="let item of searchedItem">
-    <ion-card-content>
-      <ion-row no-padding>
-        <ion-col col-3 text-center>
-          <ion-card-subtitle color="medium">BRAND</ion-card-subtitle>
-          <ion-card-title>{{item.name}}</ion-card-title>
-          <ion-button fill="outline" shape="round" (click)="onClick(x = item.name)">Select</ion-button>
-        </ion-col>
-        <ion-col>
-          <img src="./assets/img/brands/{{item.icon}}" width="120" height="120"/>
-        </ion-col>
-      </ion-row>
-    </ion-card-content>
+    <ion-grid>
+      <ion-card-content>
+        <ion-row no-padding>
+          <ion-col size="7" text-center>
+            <ion-card-subtitle color="medium">BRAND</ion-card-subtitle>
+            <ion-card-title>{{item.name}}</ion-card-title>
+            <ion-button fill="outline" shape="round" (click)="onClick(x = item.name)">Select</ion-button>
+          </ion-col>
+          <ion-col size="5">
+            <img src="{{item.icon}}">
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+    </ion-grid>
   </ion-card>
 
 </ion-content>

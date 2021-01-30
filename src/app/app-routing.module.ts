@@ -29,6 +29,10 @@ const routes: Routes = [
   {
     path: 'addremote',
     loadChildren: () => import('./addremote/addremote.module').then( m => m.AddremotePageModule)
+  },
+  {
+    path: 'addmodel',
+    loadChildren: () => import('./addmodel/addmodel.module').then( m => m.AddmodelPageModule)
   }
 ];
 @NgModule({

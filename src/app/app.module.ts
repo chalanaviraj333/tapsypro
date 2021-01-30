@@ -12,6 +12,8 @@ import { AppComponent } from './app.component';
 import { NavparamService } from './navparam.service';
 import { FormsModule } from '@angular/forms';
 
+
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
