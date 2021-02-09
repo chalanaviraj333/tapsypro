@@ -1,5 +1,5 @@
 <ion-header translucent>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
@@ -8,15 +8,9 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!-- <ion-searchbar showCancelButton="never"></ion-searchbar> -->
 
   <ion-card *ngFor="let model of models">
     <ion-card-content>
-      <ion-fab vertical="top" horizontal="end" slot="fixed">
-        <ion-fab-button size="small" color="light">
-          <!-- <img src="./assets/img/icons/{{model.carmodel.type}}.png"/> -->
-        </ion-fab-button>
-      </ion-fab>
 
       <ion-row no-padding>
         <ion-col col-3 text-center>

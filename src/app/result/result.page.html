@@ -8,6 +8,77 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+
+  <ion-card class="cardetails">
+    <ion-card-header><h3>{{choosecar.brand}} {{choosecar.model}} {{choosecar.year}}</h3></ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <img src="./assets/img/icons/chip.png" width="35" height="35"/>
+          </ion-col>
+          <ion-col>
+            ID48
+          </ion-col>
+          <ion-col>
+            <img src="./assets/img/icons/blade.png" width="35" height="35"/>
+          </ion-col>
+          <ion-col>
+            HU101
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            Smart Pro
+          </ion-col>
+          <ion-col>
+            All Keys Lost Working but need the pincode
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            Autel
+          </ion-col>
+          <ion-col>
+            All Keys Lost Working but need the pincode
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            Xtool
+          </ion-col>
+          <ion-col>
+            All Keys Lost Working but need the pincode
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            VVID Remotes
+          </ion-col>
+          <ion-col>
+            not Com
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            KD Remotes
+          </ion-col>
+          <ion-col>
+            nope
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            notes: this car is not good
+          </ion-col>
+          
+        </ion-row>
+      </ion-grid>
+      
+      
+
+    </ion-card-content>
+  </ion-card>
   <ion-card *ngFor="let compitableremote of compitableremotes">
     <img src="./assets/img/remotes/{{compitableremote.icon}}" width="320" height="320"/>
         <ion-card-header>
@@ -22,8 +93,6 @@
             <br>
             Chip: {{chipmfkmachine.chip}}
             <br>
-            Programming tool: {{chipmfkmachine.progmachine}}
-            <br>
             Notes:
             <br>
             <ion-text color="danger">
@@ -32,48 +101,5 @@
         </ion-card-content>
   </ion-card>
 
-  <!-- <ion-card>
-    <img src="./assets/img/mfk/{{compitablemfk.icon}}" width="320" height="320"/>
-        <ion-card-header>
-          <ion-card-title>MFK <img src="./assets/img/icons/{{mfkalerticon}}" width="30" height="30"/></ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          Tapsy Code: {{compitablemfk.tc}}
-          <br>
-          <b> Box Number: {{compitablemfk.box}} </b>
-          <br>
-          Blade: {{compitablemfk.blade}}
-          <br>
-          Chip: {{chipmfkmachine.chip}}
-          <br>
-          Programming tool: {{chipmfkmachine.progmachine}}
-          <br>
-          Notes:
-          <br>
-          <ion-text color="danger">
-            {{compitablemfk.notes}}
-          </ion-text>
-        </ion-card-content>
-  </ion-card> -->
-
-  <!-- <ion-card>
-    <img src="./assets/img/shells/{{compitableshell.icon}}" width="320" height="320"/>
-        <ion-card-header>
-          <ion-card-title>Shell <img src="./assets/img/icons/{{shellalerticon}}" width="30" height="30"/></ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          Tapsy Code: {{compitableshell.tc}}
-          <br>
-          <b> Box Number: {{compitableshell.box}} </b>
-          <br>
-          Blade: {{compitableshell.blade}}
-          <br>
-          Notes:
-          <br>
-          <ion-text color="danger">
-            {{compitablemfk.notes}}
-          </ion-text>
-        </ion-card-content>
-  </ion-card> -->
 
 </ion-content>

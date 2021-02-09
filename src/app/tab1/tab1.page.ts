@@ -4,7 +4,9 @@ import { Router } from '@angular/router';
 import { IonSearchbar } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/storage';
+
 
 import { environment } from '../../environments/environment';
 
@@ -40,7 +42,7 @@ export class Tab1Page implements OnInit{
       .then(response => {
         this.brands.push({name:resData[key].name, icon: response})
         this.brands.sort((a, b) => (a.name > b.name) ? 1 : -1)})
-      .catch(error => console.log('error', error))
+      .catch(error => {console.log('error', error)})
       }
     });
 

@@ -3,7 +3,8 @@ import { NavparamService } from '../navparam.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/storage';
 
 interface Model {
   brand: string;
@@ -559,16 +560,6 @@ export class ModelPage implements OnInit {
       .catch(error => console.log('error', error))
       }
     });
-
-    // for (let carmodel of this.carmodels) {
-    //   if (carmodel.brand == this.brand) {
-    //     this.models.push({brand:carmodel.brand, endyear:carmodel.endyear,model:carmodel.model,startyear:carmodel.startyear});
-    //   }
-    //   else {
-
-    //   }
-    // }
-    // this.models.sort((a, b) => (a.model > b.model) ? 1 : -1)
   }
 
   ngOnInit() {

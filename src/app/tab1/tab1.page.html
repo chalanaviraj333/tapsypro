@@ -9,7 +9,22 @@
 
   <ion-searchbar #search debounce="500" (ionChange)="_ionChange($event)" showCancelButton="never"></ion-searchbar>
 
-  <ion-card *ngFor="let item of searchedItem">
+  <ion-grid>
+    <ion-row class="ion-no-padding">
+    <ion-col size="6" class="ion-no-padding" *ngFor="let item of searchedItem" (click)="onClick(x = item.name)">
+      <ion-card>
+          <ion-card-content>
+                <img src="{{item.icon}}">
+                <ion-card-subtitle color="medium">{{item.name}}</ion-card-subtitle>
+          </ion-card-content>
+      </ion-card>
+    </ion-col>
+    </ion-row>
+  </ion-grid>
+  
+  
+
+  <!-- <ion-card *ngFor="let item of searchedItem">
     <ion-grid>
       <ion-card-content>
         <ion-row no-padding>
@@ -24,6 +39,6 @@
         </ion-row>
       </ion-card-content>
     </ion-grid>
-  </ion-card>
+  </ion-card> -->
 
 </ion-content>

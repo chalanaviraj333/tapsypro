@@ -1,7 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { element } from 'protractor';
 import { NavparamService } from '../navparam.service';
+// import { HttpClient } from '@angular/common/http';
 
+// import firebase from 'firebase/app';
+// import 'firebase/storage';
+
+interface Model {
+  brand: string;
+  model: string;
+  icon: string;
+}
 
 class compatiblewith {
   brand: string;
@@ -34,13 +42,7 @@ export class ResultPage implements OnInit {
   choosecar: any;
   chipmfkmachine = {};
   compitableremotes = [];
-  compitablemfk = {};
-  compitableshell = {};
   remotealerticon = "remove.png";
-  mfkalerticon = "remove.png";
-  shellalerticon = "remove.png";
-  
-  shell = {};
 
 
    remotes: remotedetails[] = [
@@ -205,19 +207,41 @@ export class ResultPage implements OnInit {
 
   ]
 
-  // mfkkeys: any[] = [
-  //   { icon: "TAP-MFK-TOY43K.png", tc: "TAP-MFK-TOY43K", box: 112, blade: 'TOY43', notes: 'Worked well' },
-  //   { icon: "TAP-MFK-TOY43K.png", tc: "TAP-MFK-TOY40K", box: 113, blade: 'TOY40', notes: 'Worked well' }
-  // ];
-
-  // keyshells: any[] = [
-  //   { icon: "TAP-SHL-TOY1.png", tc: "TAP-SHL-TOY1", box: 210, blade: 'TOY43', notes: 'Worked well' },
-  //   { icon: "TAP-MFK-TOY43K.png", tc: "TAP-SHL-TOY2", box: 213, blade: 'TOY40', notes: 'Worked well' }
-  // ];
-
   constructor(private navParamService: NavparamService) {
 
     this.choosecar = this.navParamService.getNavData();
+
+    // this.http.get<{ [key: string]: Model}>('https://tapsystock-a6450-default-rtdb.firebaseio.com/car-model.json')
+    // .subscribe(resData => {
+    //   let iconname = '';
+    //   for (const key in resData) {
+    //     if (resData[key].brand == this.choosecar.brand && resData[key].model == this.choosecar.model)
+    //     {
+    //       iconname = (resData[key].icon);
+    //     }
+    //     else
+    //     {
+
+    //     }
+    //     firebase.storage().ref().child('images/carmodels/' + iconname).getDownloadURL()
+    //     .then(response => {
+    //       this.choosecar.icon = response;
+    //     })
+  
+    //   }
+    //   // firebase.storage().ref().child('images/carmodels/' + iconname).getDownloadURL()
+    //   // .then(response => {
+    //   //   if (resData[key].brand == this.choosecar) {
+    //   //     // this.models.push({brand:resData[key].brand, model:resData[key].model, startyear:resData[key].startyear, endyear:resData[key].endyear, icon: response})
+    //   //     // this.models.sort((a, b) => (a.model > b.model) ? 1 : -1)
+    //   //       }
+    //   //       else {
+      
+    //   //       }
+    //   //   })
+    //   // .catch(error => console.log('error', error))
+    //   // }
+    // });
 
     for (let remote of this.remotes)
     {
@@ -230,45 +254,9 @@ export class ResultPage implements OnInit {
       }
     }
 
-
-
-    // for (let car of this.cars) {
-    //   if (car.brand == this.choosecar.brand && car.model == this.choosecar.model && car.type == this.choosecar.type && car.year == this.choosecar.year) {
-    //     this.chipmfkmachine = car;
-    //     for (let remote of this.remotes) {
-    //       if (car.remote == remote.tc) {
-    //         this.compitableremote = remote;
-    //         this.remotealerticon = "check.png";
-    //       }
-    //       else {
-    //       }
-    //     }
-
-        // for (let mfkkey of this.mfkkeys) {
-        //   if (car.mfk == mfkkey.tc) {
-        //     this.compitablemfk = mfkkey;
-        //     this.mfkalerticon = "check.png";
-        //   }
-        //   else {
-        //   }
-        // }
-
-        // for (let keyshell of this.keyshells) {
-        //   if (car.shell == keyshell.tc) {
-        //     this.compitableshell = keyshell;
-        //     this.shellalerticon = "check.png";
-        //   }
-        //   else {
-        //   }
-        // }
-
-  //     }
-  //     else {
-
-  //     }
-  //   }
-
   }
+
+  
 
   ngOnInit() {
   }
