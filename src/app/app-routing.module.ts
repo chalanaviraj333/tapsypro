@@ -37,7 +37,11 @@ const routes: Routes = [
   {
     path: 'addcardetails',
     loadChildren: () => import('./addcardetails/addcardetails.module').then( m => m.AddcardetailsPageModule)
-  }
+  },
+  {
+    path: 'addcarbrand',
+    loadChildren: () => import('./addcarbrand/addcarbrand.module').then( m => m.AddcarbrandPageModule)
+  },
 ];
 @NgModule({
   imports: [

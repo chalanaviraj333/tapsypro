@@ -10,7 +10,7 @@
   <ion-searchbar #search debounce="500" (ionChange)="_ionChange($event)" showCancelButton="never"></ion-searchbar>
 
   <ion-grid>
-    <ion-row class="ion-no-padding">
+    <ion-row>
     <ion-col size="6" class="ion-no-padding" *ngFor="let item of searchedItem" (click)="onClick(x = item.name)">
       <ion-card>
           <ion-card-content>

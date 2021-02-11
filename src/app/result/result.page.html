@@ -1,5 +1,5 @@
 <ion-header translucent>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/year"></ion-back-button>
     </ion-buttons>
@@ -8,9 +8,106 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
   <ion-card class="cardetails">
-    <ion-card-header><h3>{{choosecar.brand}} {{choosecar.model}} {{choosecar.year}}</h3></ion-card-header>
+    <ion-card-subtitle color="primary">{{choosecar.brand}} {{choosecar.model}} {{choosecar.year}}</ion-card-subtitle>
+    <ion-card-content>
+      <ion-grid class="chipblade">
+        <ion-row>
+          <ion-col size="3">
+            <img src="./assets/img/icons/chip.png" width="50" height="25" />
+          </ion-col>
+          <ion-col size="3">
+            <b>ID48</b>
+          </ion-col>
+          <ion-col size="3">
+            <img src="./assets/img/icons/blade.png" width="50" height="25" />
+          </ion-col>
+          <ion-col size="3">
+          <b>HU100</b>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid class="obdtools">
+        <ion-row>
+          <ion-col size="4">
+            <img src="./assets/img/icons/smartpro.png" width="70" height="60" />
+          </ion-col>
+          <ion-col size="4">
+            <img src="./assets/img/icons/working.png" width="35" height="35" /> <ion-badge class="worknotworkbadge" color="success">11</ion-badge>
+          </ion-col>
+          <ion-col size="4">
+            <img src="./assets/img/icons/notworking.png" width="35" height="35" /> <ion-badge class="worknotworkbadge" color="danger">11</ion-badge>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="4">
+            <img src="./assets/img/icons/autel.png" width="70" height="60" />
+          </ion-col>
+          <ion-col size="4">
+            <img src="./assets/img/icons/working.png" width="35" height="35" /> <ion-badge class="worknotworkbadge" color="success">11</ion-badge>
+          </ion-col>
+          <ion-col size="4">
+            <img src="./assets/img/icons/notworking.png" width="35" height="35" /> <ion-badge class="worknotworkbadge" color="danger">11</ion-badge>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="4">
+            <img src="./assets/img/icons/xtool.png" width="70" height="60" />
+          </ion-col>
+          <ion-col size="4">
+            <img src="./assets/img/icons/working.png" width="35" height="35" /> <ion-badge class="worknotworkbadge" color="success">11</ion-badge>
+          </ion-col>
+          <ion-col size="4">
+            <img src="./assets/img/icons/notworking.png" width="35" height="35" /> <ion-badge class="worknotworkbadge" color="danger">11</ion-badge>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="4">
+            <img src="./assets/img/icons/obdstar.png" width="70" height="60" />
+          </ion-col>
+          <ion-col size="4">
+            <img src="./assets/img/icons/working.png" width="35" height="35" /> <ion-badge color="success">11</ion-badge>
+          </ion-col>
+          <ion-col size="4">
+            <img src="./assets/img/icons/notworking.png" width="35" height="35" /> <ion-badge color="danger">11</ion-badge>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid class="kdxhorseremotes">
+        <ion-row>
+          <ion-col size="4">
+            <img src="./assets/img/icons/kdremotes.png" width="70" height="60" />
+          </ion-col>
+          <ion-col size="4">
+            <img src="./assets/img/icons/working.png" width="35" height="35" /> <ion-badge class="worknotworkbadge" color="success">11</ion-badge>
+          </ion-col>
+          <ion-col size="4">
+            <img src="./assets/img/icons/notworking.png" width="35" height="35" /> <ion-badge class="worknotworkbadge" color="danger">11</ion-badge>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="4">
+            <img src="./assets/img/icons/xhorseremotes.png" width="70" height="60" />
+          </ion-col>
+          <ion-col size="4">
+            <img src="./assets/img/icons/working.png" width="35" height="35" /> <ion-badge class="worknotworkbadge" color="success">11</ion-badge>
+          </ion-col>
+          <ion-col size="4">
+            <img src="./assets/img/icons/notworking.png" width="35" height="35" /> <ion-badge class="worknotworkbadge" color="danger">11</ion-badge>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid class="notes">
+          <ion-item lines="none">
+            <ion-label color="dark"><b>NOTES</b></ion-label>
+            <ion-badge color="dark" slot="end">22</ion-badge>
+          </ion-item>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- <ion-card class="cardetails">
+    <ion-card-subtitle color="success">{{choosecar.brand}} {{choosecar.model}} {{choosecar.year}}</ion-card-subtitle>
     <ion-card-content>
       <ion-grid>
         <ion-row>
@@ -73,12 +170,12 @@
           </ion-col>
           
         </ion-row>
-      </ion-grid>
+      </ion-grid> -->
       
       
 
-    </ion-card-content>
-  </ion-card>
+    <!-- </ion-card-content>
+  </ion-card> -->
   <ion-card *ngFor="let compitableremote of compitableremotes">
     <img src="./assets/img/remotes/{{compitableremote.icon}}" width="320" height="320"/>
         <ion-card-header>

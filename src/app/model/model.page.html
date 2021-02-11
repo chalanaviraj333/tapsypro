@@ -9,16 +9,15 @@
 
 <ion-content [fullscreen]="true">
 
-  <ion-card *ngFor="let model of models">
+  <ion-card *ngFor="let model of models" (click)="onClick(x = model.model, y = model.range, type = model.type, startyear = model.startyear, endyear = model.endyear)">
     <ion-card-content>
 
       <ion-row no-padding>
-        <ion-col col-3 text-center>
+        <ion-col size="7">
           <ion-card-subtitle color="medium">{{model.startyear}}-{{model.endyear}}</ion-card-subtitle>
           <ion-card-title>{{model.model}}</ion-card-title>
-          <ion-button fill="outline" shape="round" (click)="onClick(x = model.model, y = model.range, type = model.type, startyear = model.startyear, endyear = model.endyear)">Select</ion-button>
         </ion-col>
-        <ion-col>
+        <ion-col size="5">
           <img src="{{model.icon}}">
         </ion-col>
       </ion-row>

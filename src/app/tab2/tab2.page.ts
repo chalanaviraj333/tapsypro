@@ -240,7 +240,7 @@ export class Tab2Page {
 
   }
 
-  addremote() {
+  addbutton() {
 
     // return this.http.post('https://tapsystock-a6450-default-rtdb.firebaseio.com/new-remote.json', {testing: this.testingdatabase}).subscribe(
     //   resData => {
@@ -248,7 +248,7 @@ export class Tab2Page {
     //   }
     // );
     
-    this.router.navigateByUrl('addmodel');
+    this.router.navigateByUrl('addremote');
   }
 }
 

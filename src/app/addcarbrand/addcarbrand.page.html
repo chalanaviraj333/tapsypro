@@ -1,0 +1,25 @@
+<ion-header translucent>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Add Remote</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <ion-card>
+    <ion-item>
+      <ion-label color="danger" position="stacked">Car Brand</ion-label>
+      <ion-input type="text" ngModel name="carbrand" placeholder="NLK-FORD-433.2" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="danger" position="stacked">Icon Name</ion-label>
+      <ion-input placeholder="110" type="text" ngModel name="iconname" required></ion-input>
+    </ion-item>
+    <br>
+    <ion-button class="doneButton" type="submit" expand="block">DONE</ion-button>
+    </ion-card>
+  </form>
+</ion-content>

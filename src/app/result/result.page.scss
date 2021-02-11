@@ -1,8 +1,6 @@
 .cardetails {
-    --background: #3a1d52;
-    --color: white;
-    border-radius: 10px;
-    box-shadow: -1px 3px 5px 0px rgba(0,0,0,0.75);
+    border-radius: 15px;
+    box-shadow: 1px 1px 5px 0px rgba(73, 4, 138, 0.315);
 }
 
 h3 {
@@ -12,3 +10,44 @@ h3 {
 ion-card-header {
     text-align: center;
 }
+
+ion-card-subtitle {
+    text-align: center;
+    margin-top: 2px;
+}
+
+.chipblade {
+    border-color: #144696;
+    border-style: solid;
+    border-radius: 15px;
+    box-shadow: 1px 1px 5px 0px rgba(84, 6, 156, 0.315);
+    margin-bottom: 10px;
+}
+
+.obdtools {
+    border-color: #149655;
+    border-style: solid;
+    border-radius: 15px;
+    box-shadow: 1px 1px 5px 0px rgba(84, 6, 156, 0.315);
+    margin-bottom: 10px;
+}
+
+.kdxhorseremotes {
+    border-color: #940000;
+    border-style: solid;
+    border-radius: 15px;
+    box-shadow: 1px 1px 5px 0px rgba(84, 6, 156, 0.315);
+    margin-bottom: 10px;
+}
+
+.notes {
+    border-style: solid;
+    border-radius: 15px;
+    box-shadow: 1px 1px 5px 0px rgba(84, 6, 156, 0.315);
+}
+
+.worknotworkbadge {
+    margin-bottom: 15px;
+}
+
+
