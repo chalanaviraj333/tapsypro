@@ -23,7 +23,57 @@ export class ModelPage implements OnInit {
   brand: any;
   public models: Array<Model> = [];
 
-  // carmodels: any[] = [
+  
+  constructor(
+    private navParamService: NavparamService, private router: Router, private http: HttpClient
+  ) {
+
+    this.brand = this.navParamService.getNavData();
+
+
+    this.http.get<{ [key: string]: Model}>('https://tapsystock-a6450-default-rtdb.firebaseio.com/car-model.json')
+    .subscribe(resData => {
+      for (const key in resData) {
+      const iconname = (resData[key].icon);
+      firebase.storage().ref().child('images/carmodels/' + iconname).getDownloadURL()
+      .then(response => {
+        if (resData[key].brand == this.brand) {
+          this.models.push({brand:resData[key].brand, model:resData[key].model, startyear:resData[key].startyear, endyear:resData[key].endyear, icon: response})
+          this.models.sort((a, b) => (a.model > b.model) ? 1 : -1)
+            }
+            else {
+      
+            }
+        })
+      .catch(error => console.log('error', error))
+      }
+    });
+  }
+
+  ngOnInit() {
+  }
+
+  onClick(x, y, type, startyear, endyear) {
+
+
+    let car = { brand: this.brand, model: x, type: type, startyear: startyear, endyear: endyear };
+
+    if (y == "All Models") {
+      this.navParamService.setNavData(car);
+      this.router.navigateByUrl('submodel');
+    }
+    else {
+      this.navParamService.setNavData(car);
+      this.router.navigateByUrl('year');
+
+    }
+
+  }
+
+}
+
+
+// carmodels: any[] = [
 
   //   // Alfa Romeo Models 
   //   { brand: 'ALFA ROMEO', model: 'Giulietta', startyear: 2010, endyear: 2016 },
@@ -535,51 +585,3 @@ export class ModelPage implements OnInit {
   //   // Toyota Models
    
   // ];
-
-  constructor(
-    private navParamService: NavparamService, private router: Router, private http: HttpClient
-  ) {
-
-    this.brand = this.navParamService.getNavData();
-
-
-    this.http.get<{ [key: string]: Model}>('https://tapsystock-a6450-default-rtdb.firebaseio.com/car-model.json')
-    .subscribe(resData => {
-      for (const key in resData) {
-      const iconname = (resData[key].icon);
-      firebase.storage().ref().child('images/carmodels/' + iconname).getDownloadURL()
-      .then(response => {
-        if (resData[key].brand == this.brand) {
-          this.models.push({brand:resData[key].brand, model:resData[key].model, startyear:resData[key].startyear, endyear:resData[key].endyear, icon: response})
-          this.models.sort((a, b) => (a.model > b.model) ? 1 : -1)
-            }
-            else {
-      
-            }
-        })
-      .catch(error => console.log('error', error))
-      }
-    });
-  }
-
-  ngOnInit() {
-  }
-
-  onClick(x, y, type, startyear, endyear) {
-
-
-    let car = { brand: this.brand, model: x, type: type, startyear: startyear, endyear: endyear };
-
-    if (y == "All Models") {
-      this.navParamService.setNavData(car);
-      this.router.navigateByUrl('submodel');
-    }
-    else {
-      this.navParamService.setNavData(car);
-      this.router.navigateByUrl('year');
-
-    }
-
-  }
-
-}

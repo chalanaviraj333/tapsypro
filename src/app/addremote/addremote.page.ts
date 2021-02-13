@@ -1,16 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import firebase from 'firebase/app';
 
 
 interface Remote {
   tapsycode: string;
-  boxNo: number;
-  inbuildChip: string;
+  boxnumber: number;
+  inbuildchip: string;
   inbuildblade: string;
   remotetype: string;
-  notes: Array<string>;
+  compitablebrands: Array<string>;
+  image: string;
+  notes: string;
   compitablecars: Array<Object>;
 }
 
@@ -33,12 +34,20 @@ export class AddremotePage implements OnInit {
   public allcars: Model[] = [];
   public selectedcarbrandmodels: Model[] = [];
   public selectedcarmodelyears: Array<number>;
-  public remotetype = "";
+  public addedcars: Model[] = [];
+
+  public boxNumber: number;
+  public tapsyCode: string;
+  public inbuildChip: string;
+  public inbuildBlade: string;
+  public remoteType: string;
+  public noTes: string;
+  public compitableBrandsunsorted = [];
+  public compitableBrands: Array<string>;
 
   constructor(private http: HttpClient) { 
 
     let allcarbrandswithduplicates = [];
-    this.remotetype = "bladed";
     
 
     this.http.get<{ [key: string]: Model}>('https://tapsystock-a6450-default-rtdb.firebaseio.com/car-model.json')
@@ -50,8 +59,6 @@ export class AddremotePage implements OnInit {
       this.carbrands= allcarbrandswithduplicates.filter(function(elem, index, self) {
         return index === self.indexOf(elem);
       });
-
-      console.log(this.carbrands);
 
   });
   }
@@ -67,7 +74,7 @@ export class AddremotePage implements OnInit {
           this.selectedcarbrandmodels.push(car);
         }
     });
-  }
+  } 
 
   onChangeModel(selectedcarmodel){
     this.selectedcarmodelyears = [];
@@ -81,18 +88,35 @@ export class AddremotePage implements OnInit {
     for (let i = selectedmodel.startyear; i <= selectedmodel.endyear; i++) {
       this.selectedcarmodelyears.push(i);
     }
-    console.log(this.selectedcarmodelyears);
   }
 
  
-  // onSubmit(form: NgForm) 
-  // {
+  onSubmit(form: NgForm) 
+  {
 
-  //   return this.http.post('https://tapsystock-a6450-default-rtdb.firebaseio.com/car-brand.json', {name:form.value.carbrand, icon:form.value.iconname}).subscribe(
-  //     resData => {
-  //       console.log(resData);
-  //     }
-  //   );
-  // }
+    this.addedcars.push(form.value);
+    this.compitableBrandsunsorted.push(form.value.brand);
+
+    this.compitableBrands = this.compitableBrandsunsorted.filter(function(elem, index, self) {
+      return index === self.indexOf(elem);
+    });
+
+    console.log(this.compitableBrands);
+  }
+
+  doneclicked() {
+
+    const iconname = this.tapsyCode.replace(/\s/g, "") + '.png';
+
+    const newRemote: Remote = {tapsycode:this.tapsyCode, boxnumber:this.boxNumber, inbuildchip: this.inbuildChip, inbuildblade: this.inbuildBlade,
+    remotetype: this.remoteType, image: iconname, notes: this.noTes, compitablebrands: this.compitableBrands, compitablecars: this.addedcars};
+
+    
+    return this.http.post('https://tapsystock-a6450-default-rtdb.firebaseio.com/remotes.json', newRemote).subscribe(
+      resData => {
+        console.log(resData);
+      }
+    );
+  }
 
 }

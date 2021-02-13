@@ -1,6 +1,12 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
     <ion-title>Car Brands</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="addbutton()">
+        <ion-icon slot="icon-only" ios="add-outline" md="add-outline"></ion-icon>
+        
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 
 </ion-header>
@@ -21,24 +27,5 @@
     </ion-col>
     </ion-row>
   </ion-grid>
-  
-  
-
-  <!-- <ion-card *ngFor="let item of searchedItem">
-    <ion-grid>
-      <ion-card-content>
-        <ion-row no-padding>
-          <ion-col size="7" text-center>
-            <ion-card-subtitle color="medium">BRAND</ion-card-subtitle>
-            <ion-card-title>{{item.name}}</ion-card-title>
-            <ion-button fill="outline" shape="round" (click)="onClick(x = item.name)">Select</ion-button>
-          </ion-col>
-          <ion-col size="5">
-            <img src="{{item.icon}}">
-          </ion-col>
-        </ion-row>
-      </ion-card-content>
-    </ion-grid>
-  </ion-card> -->
 
 </ion-content>

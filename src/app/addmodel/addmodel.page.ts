@@ -32,8 +32,7 @@ export class AddmodelPage implements OnInit {
   onSubmit(form: NgForm) 
   {
 
-    const iconname = form.value.carbrand.replace(/\s/g, "") + form.value.carmodel + '.png';
-    console.log(iconname);
+    const iconname = form.value.carbrand.replace(/\s/g, "") + form.value.carmodel.replace(/\s/g, "") + '.png';
 
     return this.http.post('https://tapsystock-a6450-default-rtdb.firebaseio.com/car-model.json', {brand:form.value.carbrand, model:form.value.carmodel, startyear:form.value.startyear, endyear:form.value.endyear, icon:iconname}).subscribe(
       resData => {
