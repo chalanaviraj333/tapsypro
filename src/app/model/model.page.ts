@@ -23,7 +23,7 @@ export class ModelPage implements OnInit {
   brand: any;
   public models: Array<Model> = [];
 
-  
+
   constructor(
     private navParamService: NavparamService, private router: Router, private http: HttpClient
   ) {
@@ -31,23 +31,23 @@ export class ModelPage implements OnInit {
     this.brand = this.navParamService.getNavData();
 
 
-    this.http.get<{ [key: string]: Model}>('https://tapsystock-a6450-default-rtdb.firebaseio.com/car-model.json')
-    .subscribe(resData => {
-      for (const key in resData) {
-      const iconname = (resData[key].icon);
-      firebase.storage().ref().child('images/carmodels/' + iconname).getDownloadURL()
-      .then(response => {
-        if (resData[key].brand == this.brand) {
-          this.models.push({brand:resData[key].brand, model:resData[key].model, startyear:resData[key].startyear, endyear:resData[key].endyear, icon: response})
-          this.models.sort((a, b) => (a.model > b.model) ? 1 : -1)
-            }
-            else {
-      
-            }
-        })
-      .catch(error => console.log('error', error))
-      }
-    });
+    this.http.get<{ [key: string]: Model }>('https://tapsystock-a6450-default-rtdb.firebaseio.com/car-model.json')
+      .subscribe(resData => {
+        for (const key in resData) {
+          const iconname = (resData[key].icon);
+          firebase.storage().ref().child('images/carmodels/' + iconname).getDownloadURL()
+            .then(response => {
+              if (resData[key].brand == this.brand) {
+                this.models.push({ brand: resData[key].brand, model: resData[key].model, startyear: resData[key].startyear, endyear: resData[key].endyear, icon: response })
+                this.models.sort((a, b) => (a.model > b.model) ? 1 : -1)
+              }
+              else {
+
+              }
+            })
+            .catch(error => console.log('error', error))
+        }
+      });
   }
 
   ngOnInit() {
@@ -155,7 +155,7 @@ export class ModelPage implements OnInit {
   //   { brand: 'FIAT', model: '500', startyear: 2007, endyear: 2016 },
 
   //   { brand: 'FIAT', model: 'Grande Punto', startyear: 2006, endyear: 2016 },
-    
+
   //   { brand: 'FIAT', model: 'Panda', startyear: 2003, endyear: 2012 },
 
   //   { brand: 'FIAT', model: 'Punto Evo', startyear: 2009, endyear: 2016 },
@@ -251,21 +251,21 @@ export class ModelPage implements OnInit {
   //   { brand: 'HOLDEN', model: 'Commodore VF', startyear: 2014, endyear: 2017 },
 
   //   { brand: 'HOLDEN', model: 'Spark', startyear: 2015, endyear: 2015 },
-    
+
   //   { brand: 'HOLDEN', model: 'Cascada', startyear: 2013, endyear: 2013 },
-    
+
   //   { brand: 'HOLDEN', model: 'Cruze', startyear: 2008, endyear: 2016 },
 
   //   { brand: 'HOLDEN', model: 'Trax', startyear: 2012, endyear: 2015 },
 
   //   { brand: 'HOLDEN', model: 'Astra', startyear: 2004, endyear: 2016 },
-    
+
   //   { brand: 'HOLDEN', model: 'Malibu', startyear: 2013, endyear: 2016 },
-    
+
   //   { brand: 'HOLDEN', model: 'Captiva', startyear: 2010, endyear: 2018 },
-    
+
   //   { brand: 'HOLDEN', model: 'Zafira', startyear: 2005, endyear: 2013 },
-    
+
 
 
   //   // Peugeot Models
@@ -291,40 +291,40 @@ export class ModelPage implements OnInit {
   //   {brand:'HONDA', model:'Jazz', startyear:2004, endyear:2018},
 
   //   {brand:'HONDA', model:'Accord', startyear:2002, endyear:2017},
-    
+
   //   {brand:'HONDA', model:'City', startyear:2013, endyear:2016},
 
   //   {brand:'HONDA', model:'BRV', startyear:2013, endyear:2016},
 
   //   {brand:'HONDA', model:'Crider', startyear:2013, endyear:2016},
-    
+
   //   {brand:'HONDA', model:'Odassey', startyear:2004, endyear:2008},
-    
+
   //   {brand:'HONDA', model:'HRV', startyear:2005, endyear:2018},
 
   //   {brand:'HONDA', model:'Stream', startyear:2004, endyear:2005},
-    
+
   //   {brand:'HONDA', model:'FRV', startyear:2007, endyear:2009},
-    
+
   //   {brand:'HONDA', model:'Brio', startyear:2015, endyear:2016},
 
   //   {brand:'HONDA', model:'Mobilio', startyear:2015, endyear:2016},
-    
+
   //   {brand:'HONDA', model:'Fit', startyear:2014, endyear:2014},
-    
+
   //   {brand:'HONDA', model:'Shuttle', startyear:2014, endyear:2014},
   //   {brand:'HONDA', model:'Vezel', startyear:2014, endyear:2014},
-    
+
   //   {brand:'HONDA', model:'XRV', startyear:2014, endyear:2014},
-    
+
   //   {brand:'HONDA', model:'Grace', startyear:2016, endyear:2016},
-    
+
   //   {brand:'HONDA', model:'Jade', startyear:2014, endyear:2017},
 
   //   {brand:'HONDA', model:'Crosstour', startyear:2014, endyear:2016},
-    
+
   //   {brand:'HONDA', model:'CRV', startyear:2012, endyear:2016},
-    
+
 
 
   //   // Hyundai Models
@@ -344,15 +344,15 @@ export class ModelPage implements OnInit {
   //   {brand:'HYUNDAI', model:'Veloster', startyear:2011, endyear:2017},
 
   //   {brand:'HYUNDAI', model:'i30', startyear:2017, endyear:2020},
-    
+
   //   {brand:'HYUNDAI', model:'Santa Fe', startyear:2012, endyear:2017},
 
   //   {brand:'HYUNDAI', model:'ix35', startyear:2013, endyear:2015},
-    
+
   //   {brand:'HYUNDAI', model:'ix45', startyear:2012, endyear:2017},
-    
+
   //   {brand:'HYUNDAI', model:'i10', startyear:2013, endyear:2016},
-    
+
 
 
 
@@ -372,11 +372,11 @@ export class ModelPage implements OnInit {
   //   {brand:'KIA', model:'Sportage', startyear:2011, endyear:2016},
 
   //   {brand:'KIA', model:'Picanto', startyear:2014, endyear:2016},
-    
+
   //   {brand:'KIA', model:'K3', startyear:2012, endyear:2012},
-    
+
   //   {brand:'KIA', model:'Cerato', startyear:2012, endyear:2012},
-    
+
 
 
 
@@ -390,13 +390,13 @@ export class ModelPage implements OnInit {
   //   {brand:'JAGUAR', model:'XFR', startyear:2007, endyear:2011},
 
   //   {brand:'JAGUAR', model:'F Type', startyear:2014, endyear:2015},
-    
+
   //   {brand:'JAGUAR', model:'E Pace', startyear:2018, endyear:2018},
 
   //   {brand:'JAGUAR', model:'I Pace', startyear:2018, endyear:2018},
 
   //   {brand:'JAGUAR', model:'XJ', startyear:2011, endyear:2017},
-  
+
   //   {brand:'JAGUAR', model:'F Pace', startyear:2017, endyear:2019},
 
   //   {brand:'JAGUAR', model:'XE', startyear:2017, endyear:2018},
@@ -407,7 +407,7 @@ export class ModelPage implements OnInit {
   //   {brand:'JEEP', model:'Commander', startyear:2008, endyear:2010},
 
   //   {brand:'JEEP', model:'Grand Cherokee', startyear:2008, endyear:2019},
-    
+
   //   {brand:'JEEP', model:'Cherokee', startyear:2014, endyear:2019},
 
 
@@ -417,13 +417,13 @@ export class ModelPage implements OnInit {
   //   {brand:'LAND ROVER', model:'LR2', startyear:2008, endyear:2014},
 
   //   {brand:'LAND ROVER', model:'LR3', startyear:2005, endyear:2009},
-    
+
   //   {brand:'LAND ROVER', model:'Discovery', startyear:2015, endyear:2018},
   //   {brand:'LAND ROVER', model:'Discovery Sport', startyear:2016, endyear:2018},
   //   {brand:'LAND ROVER', model:'Discovery 3', startyear:2006, endyear:2010},
 
   //   {brand:'LAND ROVER', model:'LR4', startyear:2012, endyear:2018},
-    
+
 
 
   //   // Range rover Models
@@ -455,17 +455,17 @@ export class ModelPage implements OnInit {
   //   {brand:'LEXUS', model:'LS460', startyear:2007, endyear:2013},
 
   //   {brand:'LEXUS', model:'LS600h', startyear:2008, endyear:2013},
-    
+
   //   {brand:'LEXUS', model:'IS-F', startyear:2008, endyear:2011},
-    
+
   //   {brand:'LEXUS', model:'CT200h', startyear:2011, endyear:2011},
-    
+
   //   {brand:'LEXUS', model:'HS250h', startyear:2010, endyear:2012},
-    
+
   //   {brand:'LEXUS', model:'LX570', startyear:2010, endyear:2011},
 
   //   {brand:'LEXUS', model:'ISC', startyear:2009, endyear:2011},
-    
+
 
   //   // Mazda Models
   //   {brand:'MAZDA', model:'6 Wagon', startyear:2012, endyear:2019},
@@ -475,18 +475,18 @@ export class ModelPage implements OnInit {
   //   {brand:'MAZDA', model:'CX-5', startyear:2012, endyear:2019},
 
   //   {brand:'MAZDA', model:'CX-7', startyear:2010, endyear:2019},
-    
+
   //   {brand:'MAZDA', model:'2', startyear:2014, endyear:2016},
 
   //   {brand:'MAZDA', model:'3 Hatch', startyear:2013, endyear:2015},
-    
+
   //   {brand:'MAZDA', model:'3', startyear:2017, endyear:2017},
 
   //   {brand:'MAZDA', model:'6', startyear:2017, endyear:2017},
-    
+
   //   {brand:'MAZDA', model:'CX-9', startyear:2017, endyear:2017},
-    
-    
+
+
   //   // Mini Models
   //   {brand:'MINI', model:'Mini cooper', startyear:2006, endyear:2013},
 
@@ -510,15 +510,15 @@ export class ModelPage implements OnInit {
   //   {brand:'NISSAN', model:'Navara', startyear:2006, endyear:2015},
 
   //   {brand:'NISSAN', model:'Patrol', startyear:2006, endyear:2012},
-    
+
   //   {brand:'NISSAN', model:'Juke', startyear:2009, endyear:2010},
 
   //   {brand:'NISSAN', model:'Cube', startyear:2009, endyear:2013},
-    
+
   //   {brand:'NISSAN', model:'Armada', startyear:2017, endyear:2018},
 
   //   {brand:'NISSAN', model:'Murano', startyear:2015, endyear:2020},
-    
+
   //   {brand:'NISSAN', model:'Titan', startyear:2017, endyear:2019},
 
   //   {brand:'NISSAN', model:'Rogue', startyear:2017, endyear:2019},
@@ -526,8 +526,8 @@ export class ModelPage implements OnInit {
   //   {brand:'NISSAN', model:'Altima', startyear:2016, endyear:2018},
 
   //   {brand:'NISSAN', model:'Maxima', startyear:2016, endyear:2019},
-    
-    
+
+
   //   // Renault Models
 
   //   {brand:'RENAULT', model:'Maxity', startyear:2007, endyear:2016},
@@ -544,11 +544,11 @@ export class ModelPage implements OnInit {
   //   {brand:'RENAULT', model:'Clio IV', startyear:2009, endyear:2017},
 
   //   {brand:'RENAULT', model:'Captur', startyear:2013, endyear:2017},
-    
+
   //   {brand:'RENAULT', model:'Laguna III', startyear:2008, endyear:2012},
-   
+
   //   {brand:'RENAULT', model:'Fluence', startyear:2012, endyear:2016},
-    
+
   //   {brand:'RENAULT', model:'Talisman', startyear:2016, endyear:2016},
 
   //   {brand:'RENAULT', model:'Espace V', startyear:2016, endyear:2016},
@@ -568,14 +568,14 @@ export class ModelPage implements OnInit {
   //   {brand:'SUBARU', model:'Forester', startyear:2004, endyear:2020},
 
   //   {brand:'SUBARU', model:'Legacy', startyear:2008, endyear:2014},
-    
+
   //   {brand:'SUBARU', model:'XV', startyear:2018, endyear:2018},
   //   {brand:'SUBARU', model:'XV Crosstrek', startyear:2017, endyear:2020},
-   
+
   //   {brand:'SUBARU', model:'Legacy', startyear:2016, endyear:2020},
-    
+
   //   {brand:'SUBARU', model:'BRZ', startyear:2014, endyear:2020},
-    
+
   //   {brand:'SUBARU', model:'ST', startyear:2016, endyear:2017},
 
   //   {brand:'SUBARU', model:'WRX', startyear:2016, endyear:2018},
@@ -583,5 +583,5 @@ export class ModelPage implements OnInit {
 
 
   //   // Toyota Models
-   
+
   // ];

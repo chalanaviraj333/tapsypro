@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {NavparamService} from '../navparam.service';
-import {Router} from '@angular/router';
+import { NavparamService } from '../navparam.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-year',
@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
 })
 export class YearPage implements OnInit {
 
-  car:any;
+  car: any;
   years: number[] = [];
 
 
@@ -24,13 +24,13 @@ export class YearPage implements OnInit {
     }
 
 
-   }
+  }
 
   ngOnInit() {
   }
 
-  onSelect(year){
-    let car = {brand:this.car.brand, model:this.car.model, year:year, type:this.car.type};
+  onSelect(year) {
+    let car = { brand: this.car.brand, model: this.car.model, year: year, type: this.car.type };
     this.navParamService.setNavData(car);
     this.router.navigateByUrl('result');
   }

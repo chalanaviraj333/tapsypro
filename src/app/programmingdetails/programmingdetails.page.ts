@@ -23,7 +23,7 @@ export class ProgrammingdetailsPage implements OnInit {
   public searchedItem: Array<Carmodel> = [];
   public carmodels: Array<Carmodel> = [];
 
-  constructor( private navParamService: NavparamService, private router: Router, private http: HttpClient) {
+  constructor(private navParamService: NavparamService, private router: Router, private http: HttpClient) {
 
     this.http.get<{ [key: string]: Carmodel }>('https://tapsystock-a6450-default-rtdb.firebaseio.com/car-model.json')
       .subscribe(resData => {

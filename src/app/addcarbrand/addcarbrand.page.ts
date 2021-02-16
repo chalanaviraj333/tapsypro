@@ -9,20 +9,28 @@ import { NgForm } from '@angular/forms';
 })
 export class AddcarbrandPage implements OnInit {
 
+  public errorList = [];
+
   constructor(private http: HttpClient) { }
 
 
   ngOnInit() {
   }
 
-  onSubmit(form: NgForm) 
-  {
+  onSubmit(form: NgForm) {
+    this.errorList = [];
 
-    return this.http.post('https://tapsystock-a6450-default-rtdb.firebaseio.com/car-brand.json', {name:form.value.carbrand, icon:form.value.iconname}).subscribe(
-      resData => {
-        console.log(resData);
-      }
-    );
+    if (form.value.carbrand == "" || form.value.iconname == "") {
+      this.errorList.push('some fields are empty');
+
+    }
+    else {
+      return this.http.post('https://tapsystock-a6450-default-rtdb.firebaseio.com/car-brand.json', { name: form.value.carbrand, icon: form.value.iconname }).subscribe(
+        resData => {
+        }
+      );
+
+    }
   }
 
 }

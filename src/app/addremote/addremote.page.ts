@@ -45,43 +45,43 @@ export class AddremotePage implements OnInit {
   public compitableBrandsunsorted = [];
   public compitableBrands: Array<string>;
 
-  constructor(private http: HttpClient) { 
+  public errorList = [];
+
+  constructor(private http: HttpClient) {
 
     let allcarbrandswithduplicates = [];
-    
 
-    this.http.get<{ [key: string]: Model}>('https://tapsystock-a6450-default-rtdb.firebaseio.com/car-model.json')
-    .subscribe(resData => {
-      for (const key in resData) {
-        allcarbrandswithduplicates.push(resData[key].brand);
-        this.allcars.push(resData[key]);
-      }
-      this.carbrands= allcarbrandswithduplicates.filter(function(elem, index, self) {
-        return index === self.indexOf(elem);
+
+    this.http.get<{ [key: string]: Model }>('https://tapsystock-a6450-default-rtdb.firebaseio.com/car-model.json')
+      .subscribe(resData => {
+        for (const key in resData) {
+          allcarbrandswithduplicates.push(resData[key].brand);
+          this.allcars.push(resData[key]);
+        }
+        this.carbrands = allcarbrandswithduplicates.filter(function (elem, index, self) {
+          return index === self.indexOf(elem);
+        });
+
       });
-
-  });
   }
 
   ngOnInit() {
   }
 
-  onChangeBrand(selectedcarbrand){
+  onChangeBrand(selectedcarbrand) {
     this.selectedcarbrandmodels = [];
     this.allcars.forEach(car => {
-        if (car.brand == selectedcarbrand.target.value)
-        {
-          this.selectedcarbrandmodels.push(car);
-        }
+      if (car.brand == selectedcarbrand.target.value) {
+        this.selectedcarbrandmodels.push(car);
+      }
     });
-  } 
+  }
 
-  onChangeModel(selectedcarmodel){
+  onChangeModel(selectedcarmodel) {
     this.selectedcarmodelyears = [];
     let selectedmodel: Model;
     this.allcars.forEach(car => {
-      if (car.model == selectedcarmodel.target.value)
-      {
+      if (car.model == selectedcarmodel.target.value) {
         selectedmodel = car;
       }
     });
@@ -90,33 +90,46 @@ export class AddremotePage implements OnInit {
     }
   }
 
- 
-  onSubmit(form: NgForm) 
-  {
 
-    this.addedcars.push(form.value);
-    this.compitableBrandsunsorted.push(form.value.brand);
+  onSubmit(form: NgForm) {
+    this.errorList = [];
 
-    this.compitableBrands = this.compitableBrandsunsorted.filter(function(elem, index, self) {
-      return index === self.indexOf(elem);
-    });
+    if (form.value.brand == "" || form.value.model == "" || form.value.startyear == "" || form.value.endyear == "") {
+      this.errorList.push('add this car fields should not be empty!');
 
-    console.log(this.compitableBrands);
+    }
+    else {
+      this.addedcars.push(form.value);
+      this.compitableBrandsunsorted.push(form.value.brand);
+
+      this.compitableBrands = this.compitableBrandsunsorted.filter(function (elem, index, self) {
+        return index === self.indexOf(elem);
+      });
+
+    }
   }
 
   doneclicked() {
 
-    const iconname = this.tapsyCode.replace(/\s/g, "") + '.png';
+    this.errorList = [];
+    if (this.tapsyCode == undefined || this.boxNumber == undefined || this.remoteType == undefined || this.compitableBrands == undefined) {
+      this.errorList.push('add remotes fields are empty!');
+    }
+    else {
+      const iconname = this.tapsyCode.replace(/\s/g, "") + '.png';
 
-    const newRemote: Remote = {tapsycode:this.tapsyCode, boxnumber:this.boxNumber, inbuildchip: this.inbuildChip, inbuildblade: this.inbuildBlade,
-    remotetype: this.remoteType, image: iconname, notes: this.noTes, compitablebrands: this.compitableBrands, compitablecars: this.addedcars};
+      const newRemote: Remote = {
+        tapsycode: this.tapsyCode, boxnumber: this.boxNumber, inbuildchip: this.inbuildChip, inbuildblade: this.inbuildBlade,
+        remotetype: this.remoteType, image: iconname, notes: this.noTes, compitablebrands: this.compitableBrands, compitablecars: this.addedcars
+      };
 
-    
-    return this.http.post('https://tapsystock-a6450-default-rtdb.firebaseio.com/remotes.json', newRemote).subscribe(
-      resData => {
-        console.log(resData);
-      }
-    );
+      return this.http.post('https://tapsystock-a6450-default-rtdb.firebaseio.com/remotes.json', newRemote).subscribe(
+        resData => {
+        }
+      );
+
+    }
+
   }
 
 }

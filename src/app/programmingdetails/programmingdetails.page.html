@@ -13,15 +13,16 @@
 
   <ion-grid>
     <ion-row>
-    <ion-col size="6" class="ion-no-padding" *ngFor="let carmodel of searchedItem" (click)="onClick(brand = carmodel.brand, model = carmodel.model, startyear = carmodel.startyear, endyear = carmodel.endyear)">
-      <ion-card>
+      <ion-col size="6" class="ion-no-padding" *ngFor="let carmodel of searchedItem"
+        (click)="onClick(brand = carmodel.brand, model = carmodel.model, startyear = carmodel.startyear, endyear = carmodel.endyear)">
+        <ion-card>
           <ion-card-content>
-                <img src="{{carmodel.icon}}">
-                <h3>{{carmodel.brand}} {{carmodel.model}}</h3>
-                <ion-card-subtitle color="medium">{{carmodel.startyear}} - {{carmodel.endyear}}</ion-card-subtitle>
+            <img src="{{carmodel.icon}}" width="120" height="120">
+            <h3>{{carmodel.brand}} {{carmodel.model}}</h3>
+            <ion-card-subtitle color="medium">{{carmodel.startyear}} - {{carmodel.endyear}}</ion-card-subtitle>
           </ion-card-content>
-      </ion-card>
-    </ion-col>
+        </ion-card>
+      </ion-col>
     </ion-row>
   </ion-grid>
 

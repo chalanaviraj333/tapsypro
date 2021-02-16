@@ -18,10 +18,15 @@
       <ion-button class="doneButton" type="submit" expand="block">SAVE</ion-button>
     </ion-card>
   </form>
+  <ion-item class="errors" lines="none">
+    <ion-label color="danger" position="floating" *ngFor="let error of errorList">
+      {{error}}
+    </ion-label>
+  </ion-item>
 
   <ion-card *ngFor="let note of programmingDetails.notes" class="notesbynote">
     <ion-card-content>
-         {{note}}
+      {{note}}
     </ion-card-content>
   </ion-card>
 </ion-content>

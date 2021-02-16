@@ -10,7 +10,8 @@
   <ion-searchbar #search debounce="500" (ionChange)="_ionChange($event)" showCancelButton="never"></ion-searchbar>
 
 
-  <ion-card *ngFor="let remote of searchedItem" (click)="onClick(x = remote.tapsycode)" class="ion-activatable ripple-parent">
+  <ion-card *ngFor="let remote of searchedItem" (click)="onClick(x = remote.tapsycode)"
+    class="ion-activatable ripple-parent">
     <ion-grid>
       <ion-card-content>
         <ion-row no-padding>

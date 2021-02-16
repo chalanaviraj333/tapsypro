@@ -7,8 +7,6 @@ import { NavparamService } from '../navparam.service';
 import firebase from 'firebase/app';
 import 'firebase/storage';
 
-// import { environment } from '../../environments/environment';
-
 
 interface Remote {
   tapsycode: string;
@@ -37,27 +35,28 @@ export class Tab2Page {
   private searchedItem: Array<Remote> = [];
 
 
-  
+
 
   constructor(private navParamService: NavparamService, private router: Router, private http: HttpClient) {
 
-    // firebase.initializeApp(environment.firebase);
 
+    this.http.get<{ [key: string]: Remote }>('https://tapsystock-a6450-default-rtdb.firebaseio.com/remotes.json')
+      .subscribe(resData => {
+        for (const key in resData) {
+          const iconname = (resData[key].image);
+          firebase.storage().ref().child('images/remotes/' + iconname).getDownloadURL()
+            .then(response => {
+              this.remotes.push({
+                tapsycode: resData[key].tapsycode, boxnumber: resData[key].boxnumber, inbuildchip: resData[key].inbuildchip,
+                inbuildblade: resData[key].inbuildblade, remotetype: resData[key].remotetype, compitablebrands: resData[key].compitablebrands, image: response, notes: resData[key].notes,
+                compitablecars: resData[key].compitablecars
+              })
+              this.remotes.sort((a, b) => (a.boxnumber > b.boxnumber) ? 1 : -1)
+            })
+            .catch(error => { console.log('error', error) })
+        }
 
-    this.http.get<{ [key: string]: Remote}>('https://tapsystock-a6450-default-rtdb.firebaseio.com/remotes.json')
-    .subscribe(resData => {
-      for (const key in resData) {
-      const iconname = (resData[key].image);
-      firebase.storage().ref().child('images/remotes/' + iconname).getDownloadURL()
-      .then(response => {
-        this.remotes.push({tapsycode:resData[key].tapsycode, boxnumber:resData[key].boxnumber, inbuildchip:resData[key].inbuildchip, 
-          inbuildblade:resData[key].inbuildblade, remotetype:resData[key].remotetype, compitablebrands:resData[key].compitablebrands, image: response, notes:resData[key].notes, 
-        compitablecars: resData[key].compitablecars})
-        this.remotes.sort((a, b) => (a.boxnumber > b.boxnumber) ? 1 : -1)})
-      .catch(error => {console.log('error', error)})
-      }
-
-    });
+      });
 
     this.searchedItem = this.remotes;
 
@@ -96,12 +95,6 @@ export class Tab2Page {
 
   }
 
-  // addbutton() {
-    
-  //   this.router.navigateByUrl('programmingdetails');
-  //   // this.router.navigateByUrl('addremote');
-  //   // this.router.navigateByUrl('addmodel');
-  // }
 }
 
 
@@ -117,7 +110,7 @@ export class Tab2Page {
     // { remotenumber: 7, icon: "TAP7-TRK-BMW-02-433-CAS2.png", tc: "TAP7-TRK-BMW-02-433-CAS2", box: 7, brands: ['BMW'], compatiblewith: [{brand:'BMW', model:'Series 1', startyear:2004, endyear:2011},{brand:'BMW', model:'Series 3', startyear:2005, endyear:2007},{brand:'BMW', model:'Series 5', startyear:2005, endyear:2010},{brand:'BMW', model:'Series 6', startyear:2004, endyear:2010},{brand:'BMW', model:'X5', startyear:2006, endyear:2006},], blade: 'whhooo', chip: 'wqeooo', notes: '' },
     // { remotenumber: 8, icon: "TAP8-TRK-BMW-04-315-EWS-44.png", tc: "TAP8-TRK-BMW-04-315-EWS-44", box: 8, brands: ['BMW'], compatiblewith: [{brand:'BMW', model:'Series 5', startyear:2000, endyear:2003},{brand:'BMW', model:'Series 6', startyear:2000, endyear:2003},{brand:'BMW', model:'Series 7', startyear:2000, endyear:2002},{brand:'BMW', model:'Z3', startyear:2001, endyear:2002},], blade: 'whhooo', chip: 'wqeooo', notes: '' },
     // { remotenumber: 9, icon: "TAP9-TRK-BMW-04-433-EWS-44.png", tc: "TAP9-TRK-BMW-04-433-EWS-44", box: 9, brands: ['BMW'], compatiblewith: [{brand:'BMW', model:'Series 3', startyear:1998, endyear:2002},{brand:'BMW', model:'Z Series', startyear:1996, endyear:2002},{brand:'BMW', model:'Series 5', startyear:1997, endyear:2002},{brand:'BMW', model:'Series 7', startyear:1996, endyear:2002},], blade: 'whhooo', chip: 'wqeooo', notes: '' },
-   
+
     // { remotenumber: 10, icon: "TAP10-TRK-BMW-05-315-CAS3.png", tc: "TAP10-TRK-BMW-05-315-CAS3", box: 10, brands: ['BMW'], compatiblewith: [{brand:'BMW', model:'Series 1 (E81/E82/E88)', startyear:2007, endyear:2012},{brand:'BMW', model:'Series 1 (E87)', startyear:2004, endyear:2011},{brand:'BMW', model:'Series 3 (E90/E91)', startyear:2005, endyear:2011},{brand:'BMW', model:'Series 3 (E92/E93)', startyear:2007, endyear:2011},{brand:'BMW', model:'Series 5 (E60/E61)', startyear:2003, endyear:2010},{brand:'BMW', model:'Series X (E70/X5)', startyear:2006, endyear:2012},{brand:'BMW', model:'Series X (E71/X6/E72/X6H)', startyear:2008, endyear:2012},], blade: 'whhooo', chip: 'wqeooo', notes: '' },
     // { remotenumber: 11, icon: "TAP11-TRK-BMW-05-433-CAS3.png", tc: "TAP11-TRK-BMW-05-433-CAS3", box: 11, brands: ['BMW'], compatiblewith: [{brand:'BMW', model:'Series 3', startyear:2006, endyear:2012},{brand:'BMW', model:'Series 5', startyear:2003, endyear:2011},{brand:'BMW', model:'Series 6', startyear:2004, endyear:2012},{brand:'BMW', model:'X Series', startyear:2007, endyear:2013},], blade: 'whhooo', chip: 'wqeooo', notes: '' },
     // { remotenumber: 12, icon: "TAP12-TRK-BMW-06-315-CAS3+.png", tc: "TAP12-TRK-BMW-06-315-CAS3+", box: 12, brands: ['BMW'], compatiblewith: [{brand:'BMW', model:'Series 3', startyear:2007, endyear:2010},{brand:'BMW', model:'Series 5', startyear:2006, endyear:2010}], blade: 'whhooo', chip: 'wqeooo', notes: '' },
@@ -208,8 +201,8 @@ export class Tab2Page {
     // { remotenumber: 97, icon: "TAP97-NLK-JAGU-02-433.png", tc: "TAP97-NLK-JAGU-02-433", box: 97, brands: ['JAGUAR'], compatiblewith: [{brand:'JAGUAR', model:'XK', startyear:2007, endyear:2011},{brand:'JAGUAR', model:'XKR', startyear:2007, endyear:2011},{brand:'JAGUAR', model:'XF', startyear:2007, endyear:2011},{brand:'JAGUAR', model:'XFR', startyear:2007, endyear:2011},], blade: 'whhooo', chip: 'wqeooo', notes: '' },
     // { remotenumber: 98, icon: "TAP98-TRK-JAGU-01-433.png", tc: "TAP98-TRK-JAGU-01-433", box: 98, brands: ['JAGUAR'], compatiblewith: [{brand:'JAGUAR', model:'XF', startyear:2012, endyear:2015},{brand:'JAGUAR', model:'F Type', startyear:2015, endyear:2015},{brand:'JAGUAR', model:'XK', startyear:2012, endyear:2015},], blade: 'whhooo', chip: 'wqeooo', notes: '' },
     // { remotenumber: 99, icon: "TAP99-TRK-JAGU-04-433.png", tc: "TAP99-TRK-JAGU-04-433", box: 99, brands: ['JAGUAR'], compatiblewith: [{brand:'JAGUAR', model:'E Pace', startyear:2018, endyear:2018},{brand:'JAGUAR', model:'F Pace', startyear:2018, endyear:2018},{brand:'JAGUAR', model:'I Pace', startyear:2018, endyear:2018},], blade: 'whhooo', chip: 'wqeooo', notes: '' },
-    
-    
+
+
     // { remotenumber: 100, icon: "TAP100-NLK-CHRY-03-433-5.png", tc: "TAP100-NLK-CHRY-03-433-5", box: 100, brands: ['JEEP'], compatiblewith: [{brand:'JEEP', model:'Commander', startyear:2008, endyear:2010},{brand:'JEEP', model:'Grand Cherokee', startyear:2008, endyear:2013},], blade: 'whhooo', chip: 'wqeooo', notes: '' },
     // { remotenumber: 101, icon: "TAP101-NLK-CHRY-03-433-6.png", tc: "TAP101-NLK-CHRY-03-433-6", box: 101, brands: ['JEEP'], compatiblewith: [{brand:'JEEP', model:'Grand Cherokee', startyear:2008, endyear:2012},{brand:'JEEP', model:'Commander', startyear:2008, endyear:2010},], blade: 'whhooo', chip: 'wqeooo', notes: '' },
     // { remotenumber: 102, icon: "TAP102-NLK-JEEP-06-433.png", tc: "TAP102-NLK-JEEP-06-433", box: 102, brands: ['JEEP'], compatiblewith: [{brand:'JEEP', model:'Cherokee', startyear:2014, endyear:2017},], blade: 'whhooo', chip: 'wqeooo', notes: '' },
@@ -266,6 +259,6 @@ export class Tab2Page {
     // { remotenumber: 153, icon: "TAP153-NLK-CHEV-05-433.png", tc: "TAP153-NLK-CHEV-05-433", box: 153, brands: ['HOLDEN'], compatiblewith: [{brand:'HOLDEN', model:'Commodore VF', startyear:2014, endyear:2017},{brand:'HOLDEN', model:'Malibu', startyear:2013, endyear:2016},{brand:'HOLDEN', model:'Cruze', startyear:2011, endyear:2016},], blade: 'whhooo', chip: 'wqeooo', notes: '' },
     // { remotenumber: 154, icon: "TAP154-TRK-CHEV-05-433.png", tc: "TAP154-TRK-CHEV-05-433", box: 154, brands: ['HOLDEN'], compatiblewith: [{brand:'HOLDEN', model:'Commodore VF', startyear:2014, endyear:2017},{brand:'HOLDEN', model:'Malibu', startyear:2013, endyear:2016},{brand:'HOLDEN', model:'Cruze', startyear:2011, endyear:2016},], blade: 'whhooo', chip: 'wqeooo', notes: '' },
     // { remotenumber: 155, icon: "TAP155-NLK-DODG-06-433-1.png", tc: "TAP155-NLK-DODG-06-433-1", box: 155, brands: ['DODGE'], compatiblewith: [{brand:'DODGE', model:'Ram', startyear:2014, endyear:2018},], blade: 'whhooo', chip: 'wqeooo', notes: '' },
-  
+
     // ];
 

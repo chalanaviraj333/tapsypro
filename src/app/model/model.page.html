@@ -9,7 +9,9 @@
 
 <ion-content [fullscreen]="true">
 
-  <ion-card *ngFor="let model of models" (click)="onClick(x = model.model, y = model.range, type = model.type, startyear = model.startyear, endyear = model.endyear)" class="ion-activatable ripple-parent">
+  <ion-card *ngFor="let model of models"
+    (click)="onClick(x = model.model, y = model.range, type = model.type, startyear = model.startyear, endyear = model.endyear)"
+    class="ion-activatable ripple-parent">
     <ion-card-content>
 
       <ion-row no-padding>

@@ -13,7 +13,7 @@ interface Carmodel {
 interface Year {
   isChecked: boolean;
   year: number;
-  
+
 }
 
 interface ProgrammingDetails {
@@ -47,12 +47,14 @@ export class AddprogrammingdetailsPage implements OnInit {
   public selectedmodel: Carmodel;
   public years: Array<Year> = [];
 
-  constructor(private navParamService: NavparamService, private http: HttpClient) { 
+  public errorList = [];
+
+  constructor(private navParamService: NavparamService, private http: HttpClient) {
 
     this.selectedmodel = this.navParamService.getNavData();
 
     for (let i = this.selectedmodel.startyear; i <= this.selectedmodel.endyear; i++) {
-      let currentYear = {isChecked: true, year: i}
+      let currentYear = { isChecked: true, year: i }
       this.years.push(currentYear);
     }
 
@@ -62,37 +64,43 @@ export class AddprogrammingdetailsPage implements OnInit {
   _getSelectedYear(selectedyear) {
 
     this.years.forEach(year => {
-      if (year.year == selectedyear.year)
-      {
+      if (year.year == selectedyear.year) {
         year.isChecked = !selectedyear.isChecked
       }
     });
   }
 
-  onSubmit(form: NgForm) 
-  {
+  onSubmit(form: NgForm) {
     let selectedyears: Array<number> = [];
     let notes: Array<string> = [];
 
+    this.errorList = [];
+
     this.years.forEach(year => {
-        if (year.isChecked == true)
-        {
-          selectedyears.push(year.year);
-        }
+      if (year.isChecked == true) {
+        selectedyears.push(year.year);
+      }
     });
 
-    let saveProgrammingData: ProgrammingDetails = {brand:this.selectedmodel.brand, model:this.selectedmodel.model,
-      years:selectedyears, blade:form.value.blade, chip:form.value.chip, smartProYes:0, smartProNo:0, autelYes:0, 
-    autelNo:0, xtoolYes:0, xtoolNo:0, obdStarYes:0, obdStarNo:0, kdRemotesYes:0, kdRemotesNo:0, xHorseYes:0, xHorseNo:0, notes:notes};
+    if (form.value.chip == "" || form.value.blade == "" || selectedyears.length == 0) {
+      this.errorList.push('some fields are empty');
+    }
+    else {
+      let saveProgrammingData: ProgrammingDetails = {
+        brand: this.selectedmodel.brand, model: this.selectedmodel.model,
+        years: selectedyears, blade: form.value.blade, chip: form.value.chip, smartProYes: 0, smartProNo: 0, autelYes: 0,
+        autelNo: 0, xtoolYes: 0, xtoolNo: 0, obdStarYes: 0, obdStarNo: 0, kdRemotesYes: 0, kdRemotesNo: 0, xHorseYes: 0, xHorseNo: 0, notes: notes
+      };
 
-    return this.http.post('https://tapsystock-a6450-default-rtdb.firebaseio.com/programming-details.json', saveProgrammingData).subscribe(
-      resData => {
-        console.log(resData);
-      }
-    );
+      return this.http.post('https://tapsystock-a6450-default-rtdb.firebaseio.com/programming-details.json', saveProgrammingData).subscribe(
+        resData => {
+        }
+      );
+
+    }
   }
 
-  
+
 
   ngOnInit() {
   }

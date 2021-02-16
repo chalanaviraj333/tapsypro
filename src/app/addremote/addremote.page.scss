@@ -3,8 +3,9 @@
 }
 
 ion-card {
-    padding-right: 20px;
-    align-items: center;
+    box-shadow: 1px 1px 5px 0px rgba(84, 6, 156, 0.315);
+    border-radius: 12px;
+    margin: 12px;
     
 }
 
@@ -19,4 +20,8 @@ ion-textarea {
 .addCarButton {
     padding-left: 12px;
     padding-bottom: 5px;
+}
+
+.errors {
+    text-align: center;
 }

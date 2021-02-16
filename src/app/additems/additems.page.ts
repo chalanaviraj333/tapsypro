@@ -10,33 +10,33 @@ export class AdditemsPage implements OnInit {
 
   constructor(private router: Router) { }
 
-addCarBrand() {
-  this.router.navigateByUrl('addcarbrand');
-}
+  addCarBrand() {
+    this.router.navigateByUrl('addcarbrand');
+  }
 
-addCarModel() {
-  this.router.navigateByUrl('addmodel');
-}
+  addCarModel() {
+    this.router.navigateByUrl('addmodel');
+  }
 
-addNewRemote() {
-  this.router.navigateByUrl('addremote');
-}
+  addNewRemote() {
+    this.router.navigateByUrl('addremote');
+  }
 
-addProgDetails() {
-  this.router.navigateByUrl('programmingdetails');
-}
+  addProgDetails() {
+    this.router.navigateByUrl('programmingdetails');
+  }
 
-editCarModel() {
-  this.router.navigateByUrl('editcarmodel');
-}
+  editCarModel() {
+    this.router.navigateByUrl('editcarmodel');
+  }
 
-editRemote() {
-  this.router.navigateByUrl('editremote');
-}
+  editRemote() {
+    this.router.navigateByUrl('editremote');
+  }
 
-editCarDetails() {
-  this.router.navigateByUrl('editcardetails');
-}
+  editCarDetails() {
+    this.router.navigateByUrl('editcardetails');
+  }
 
   ngOnInit() {
   }

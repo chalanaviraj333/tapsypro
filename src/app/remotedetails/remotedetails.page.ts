@@ -28,10 +28,10 @@ export class RemotedetailsPage implements OnInit {
 
   public selectedremote: Remote;
 
-  constructor(private navParamService: NavparamService) { 
+  constructor(private navParamService: NavparamService) {
 
     this.selectedremote = this.navParamService.getNavData();
-    
+
   }
 
   ngOnInit() {

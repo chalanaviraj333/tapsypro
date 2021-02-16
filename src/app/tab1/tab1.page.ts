@@ -20,7 +20,7 @@ interface Brand {
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
-export class Tab1Page implements OnInit{
+export class Tab1Page implements OnInit {
 
   @ViewChild('search', { static: false }) search: IonSearchbar;
 
@@ -34,36 +34,37 @@ export class Tab1Page implements OnInit{
 
     firebase.initializeApp(environment.firebase);
 
-    this.http.get<{ [key: string]: Brand}>('https://tapsystock-a6450-default-rtdb.firebaseio.com/car-brand.json')
-    .subscribe(resData => {
-      for (const key in resData) {
-      const iconname = (resData[key].icon);
-      firebase.storage().ref().child('images/' + iconname).getDownloadURL()
-      .then(response => {
-        this.brands.push({name:resData[key].name, icon: response})
-        this.brands.sort((a, b) => (a.name > b.name) ? 1 : -1)})
-      .catch(error => {console.log('error', error)})
-      }
-    });
+    this.http.get<{ [key: string]: Brand }>('https://tapsystock-a6450-default-rtdb.firebaseio.com/car-brand.json')
+      .subscribe(resData => {
+        for (const key in resData) {
+          const iconname = (resData[key].icon);
+          firebase.storage().ref().child('images/' + iconname).getDownloadURL()
+            .then(response => {
+              this.brands.push({ name: resData[key].name, icon: response })
+              this.brands.sort((a, b) => (a.name > b.name) ? 1 : -1)
+            })
+            .catch(error => { console.log('error', error) })
+        }
+      });
 
     this.searchedItem = this.brands;
-       
+
   }
 
   ngOnInit() {
 
   }
 
-  onClick(x){
+  onClick(x) {
     this.navParamService.setNavData(x);
     this.router.navigateByUrl('model');
   }
 
-  _ionChange(event){
+  _ionChange(event) {
     const val = event.target.value;
 
     this.searchedItem = this.brands;
-    
+
     if (val && val.trim() != '') {
       this.searchedItem = this.searchedItem.filter((item: any) => {
         return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
@@ -73,10 +74,8 @@ export class Tab1Page implements OnInit{
 
 
   addbutton() {
-    
+
     this.router.navigateByUrl('additems');
-    // this.router.navigateByUrl('addremote');
-    // this.router.navigateByUrl('addmodel');
   }
 
 }
