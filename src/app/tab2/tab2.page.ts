@@ -96,12 +96,12 @@ export class Tab2Page {
 
   }
 
-  addbutton() {
+  // addbutton() {
     
-    this.router.navigateByUrl('programmingdetails');
-    // this.router.navigateByUrl('addremote');
-    // this.router.navigateByUrl('addmodel');
-  }
+  //   this.router.navigateByUrl('programmingdetails');
+  //   // this.router.navigateByUrl('addremote');
+  //   // this.router.navigateByUrl('addmodel');
+  // }
 }
 
 

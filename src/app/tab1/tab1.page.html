@@ -1,12 +1,11 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
-    <ion-title>Car Brands</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="addbutton()">
-        <ion-icon slot="icon-only" ios="add-outline" md="add-outline"></ion-icon>
-        
+        <ion-icon slot="icon-only" ios="add-circle-outline" md="add-circle"></ion-icon>
       </ion-button>
     </ion-buttons>
+    <ion-title>Car Brands</ion-title>
   </ion-toolbar>
 
 </ion-header>
@@ -17,14 +16,15 @@
 
   <ion-grid>
     <ion-row>
-    <ion-col size="6" class="ion-no-padding" *ngFor="let item of searchedItem" (click)="onClick(x = item.name)">
-      <ion-card>
+      <ion-col size="6" class="ion-no-padding" *ngFor="let item of searchedItem" (click)="onClick(x = item.name)">
+        <ion-card class="ion-activatable ripple-parent">
           <ion-card-content>
-                <img src="{{item.icon}}">
-                <ion-card-subtitle color="medium">{{item.name}}</ion-card-subtitle>
+            <img src="{{item.icon}}" width="120" height="115">
+            <ion-card-subtitle color="medium">{{item.name}}</ion-card-subtitle>
           </ion-card-content>
-      </ion-card>
-    </ion-col>
+          <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+        </ion-card>
+      </ion-col>
     </ion-row>
   </ion-grid>
 

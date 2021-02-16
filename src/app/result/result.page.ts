@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NavparamService } from '../navparam.service';
 import { HttpClient } from '@angular/common/http';
+import { AlertController } from '@ionic/angular';
 
 import firebase from 'firebase/app';
 import 'firebase/storage';
+import { Router } from '@angular/router';
 
 interface Remote {
   tapsycode: string;
@@ -35,6 +37,7 @@ interface ProgrammingDetails {
   kdRemotesNo: number;
   xHorseYes: number;
   xHorseNo: number;
+  notes: Array<string>;
 }
 
 
@@ -50,14 +53,414 @@ export class ResultPage implements OnInit {
   
   public choosecar: any;
   public compitableremotes: Array<Remote> = [];
-  public programmingNotes: Array<string>  = [];
-  public programmingDetails: ProgrammingDetails = {brand: 'N/A',model: 'N/A',years: [],blade: 'N/A',chip: 'N/A',smartProYes: 0,smartProNo: 0,autelYes: 0,autelNo: 0,xtoolYes: 0,xtoolNo: 0,obdStarYes: 0,obdStarNo: 0,kdRemotesYes: 0,kdRemotesNo: 0,xHorseYes: 0,xHorseNo: 0};
+  public programmingDetails: ProgrammingDetails = {brand: 'N/A',model: 'N/A',years: [],blade: 'N/A',chip: 'N/A',smartProYes: 0,smartProNo: 0,autelYes: 0,autelNo: 0,xtoolYes: 0,xtoolNo: 0,obdStarYes: 0,obdStarNo: 0,kdRemotesYes: 0,kdRemotesNo: 0,xHorseYes: 0,xHorseNo: 0, notes: []};
+  public firebaseKey: string;
+  public foundFromDatabase = false;
 
   chipmfkmachine = {};
   remotealerticon = "remove.png";
 
+
+  constructor(private navParamService: NavparamService, private http: HttpClient, 
+    public alertController: AlertController, private router: Router) {
+
+    this.choosecar = this.navParamService.getNavData();
+
+    // getting results of compatible remotes from database
+    this.http.get<{ [key: string]: Remote}>('https://tapsystock-a6450-default-rtdb.firebaseio.com/remotes.json')
+    .subscribe(resData => {
+
+      for (const key in resData){
+
+        let compatiblecars: any = resData[key].compitablecars;
+
+        if (compatiblecars.find(i => i.brand === this.choosecar.brand && i.model === this.choosecar.model && (this.choosecar.year >= i.startyear && this.choosecar.year <= i.endyear)))
+      {
+        const iconname = (resData[key].image);
+        firebase.storage().ref().child('images/remotes/' + iconname).getDownloadURL()
+        .then(response => {
+          this.compitableremotes.push({tapsycode:resData[key].tapsycode, boxnumber:resData[key].boxnumber, inbuildchip:resData[key].inbuildchip, 
+            inbuildblade:resData[key].inbuildblade, remotetype:resData[key].remotetype, compitablebrands:resData[key].compitablebrands, image: response, notes:resData[key].notes, 
+          compitablecars: resData[key].compitablecars})
+          this.compitableremotes.sort((a, b) => (a.boxnumber > b.boxnumber) ? 1 : -1)})
+        .catch(error => {console.log('error', error)})
+      }
+
+      }
+
+    });
+
+    // getting results of car programming details from database
+    this.http.get<{ [key: string]: ProgrammingDetails}>('https://tapsystock-a6450-default-rtdb.firebaseio.com/programming-details.json')
+    .subscribe(resData => {
+      
+
+      for (const key in resData){
+          
+          if (this.choosecar.brand == resData[key].brand && this.choosecar.model == resData[key].model && resData[key].years.find(i => i === this.choosecar.year))
+          {
+            this.programmingDetails = resData[key];
+            this.foundFromDatabase = true;
+
+            this.firebaseKey = key;
+          }
+          else
+          {
+            
+          }
+      }
+
+      if (this.foundFromDatabase == false )
+      {
+        this.programmingDetails.brand= this.choosecar.brand;
+        this.programmingDetails.model= this.choosecar.model;
+        this.programmingDetails.years = [this.choosecar.year];
+        this.programmingDetails.blade= 'N/A';
+        this.programmingDetails.chip= 'N/A';
+        this.programmingDetails.smartProYes= 0;
+        this.programmingDetails.smartProNo= 0;
+        this.programmingDetails.autelYes= 0;
+        this.programmingDetails.autelNo= 0;
+        this.programmingDetails.xtoolYes= 0;
+        this.programmingDetails.xtoolNo= 0;
+        this.programmingDetails.obdStarYes= 0;
+        this.programmingDetails.obdStarNo= 0;
+        this.programmingDetails.kdRemotesYes= 0;
+        this.programmingDetails.kdRemotesNo= 0;
+        this.programmingDetails.xHorseYes= 0;
+        this.programmingDetails.xHorseNo= 0;
+        this.programmingDetails.notes= [];
+
+      }
+            
+    });
+
+  }
+
+  updateProgrammingDetails(){
+
+    if (this.foundFromDatabase == true)
+    {
+      return this.http.put(`https://tapsystock-a6450-default-rtdb.firebaseio.com/programming-details/${this.firebaseKey}.json`, this.programmingDetails).subscribe(
+      resData => {
+        console.log(resData);
+      }
+    );
+
+    }
+    else 
+    {
+      return this.http.post('https://tapsystock-a6450-default-rtdb.firebaseio.com/programming-details.json', this.programmingDetails).subscribe(
+      resData => {
+        console.log(resData);
+      }
+    );
+    }
+  }
+
+  async _smartProYes() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Success',
+      message: 'Smart Pro worked for this Car?',
+      buttons: [
+        {
+          text: 'Yes',
+          handler: () => {
+            this.programmingDetails.smartProYes++;
+            this.updateProgrammingDetails();
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'alertBoxCancel'
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async _smartProNo() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Failed',
+      message: 'Smart Pro not worked for this Car?',
+      buttons: [
+        {
+          text: 'Yes',
+          handler: () => {
+            this.programmingDetails.smartProNo++;
+            this.updateProgrammingDetails();
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'alertBoxCancel'
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async _autelYes() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Success',
+      message: 'Autel worked for this Car?',
+      buttons: [
+        {
+          text: 'Yes',
+          handler: () => {
+            this.programmingDetails.autelYes++;
+            this.updateProgrammingDetails();
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'alertBoxCancel'
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async _autelNo() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Failed',
+      message: 'Autel not worked for this Car?',
+      buttons: [
+        {
+          text: 'Yes',
+          handler: () => {
+            this.programmingDetails.autelNo++;
+            this.updateProgrammingDetails();
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'alertBoxCancel'
+        }
+      ]
+    });
+
+    await alert.present();
+  }
   
-    // { remotenumber: 1, icon: "TAP1-NLK-ALFA-01-433.png", tc: "TAP1-NLK-ALFA-01-433", box: 1, brands: ['ALFA ROMEO'], compatiblewith: [{brand:'ALFA ROMEO', model:'Giulietta', startyear:2010, endyear:2016}], blade: 'whhooo', chip: 'wqeooo', notes: '' },
+  async _xtoolYes() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Success',
+      message: 'Xtool worked for this Car?',
+      buttons: [
+        {
+          text: 'Yes',
+          handler: () => {
+            this.programmingDetails.xtoolYes++;
+            this.updateProgrammingDetails();
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'alertBoxCancel'
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+
+  async _xtoolNo() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Failed',
+      message: 'Xtool not worked for this Car?',
+      buttons: [
+        {
+          text: 'Yes',
+          handler: () => {
+            this.programmingDetails.xtoolNo++;
+            this.updateProgrammingDetails();
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'alertBoxCancel'
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async _obdStarYes() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Success',
+      message: 'OBD Star worked for this Car?',
+      buttons: [
+        {
+          text: 'Yes',
+          handler: () => {
+            this.programmingDetails.obdStarYes++;
+            this.updateProgrammingDetails();
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'alertBoxCancel'
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async _obdStarNo() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Failed',
+      message: 'OBD Star not worked for this Car?',
+      buttons: [
+        {
+          text: 'Yes',
+          handler: () => {
+            this.programmingDetails.obdStarNo++;
+            this.updateProgrammingDetails();
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'alertBoxCancel'
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async _kdRemotesYes() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Success',
+      message: 'KD Remotes worked for this Car?',
+      buttons: [
+        {
+          text: 'Yes',
+          handler: () => {
+            this.programmingDetails.kdRemotesYes++;
+            this.updateProgrammingDetails();
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'alertBoxCancel'
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async _kdRemotesNo() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Failed',
+      message: 'KD Remotes not worked for this Car?',
+      buttons: [
+        {
+          text: 'Yes',
+          handler: () => {
+            this.programmingDetails.kdRemotesNo++;
+            this.updateProgrammingDetails();
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'alertBoxCancel'
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async _xHorseYes() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Success',
+      message: 'XHorse Remotes worked for this Car?',
+      buttons: [
+        {
+          text: 'Yes',
+          handler: () => {
+            this.programmingDetails.xHorseYes++;
+            this.updateProgrammingDetails();
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'alertBoxCancel'
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async _xHorseNo() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Failed',
+      message: 'XHorse Remotes not worked for this Car?',
+      buttons: [
+        {
+          text: 'Yes',
+          handler: () => {
+            this.programmingDetails.xHorseNo++;
+            this.updateProgrammingDetails();
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'alertBoxCancel'
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+
+  _carNotes(){
+    this.navParamService.setNavData(this.choosecar);
+    this.router.navigateByUrl('carnotes');
+  }
+
+  ngOnInit() {
+  }
+
+}
+
+
+
+// { remotenumber: 1, icon: "TAP1-NLK-ALFA-01-433.png", tc: "TAP1-NLK-ALFA-01-433", box: 1, brands: ['ALFA ROMEO'], compatiblewith: [{brand:'ALFA ROMEO', model:'Giulietta', startyear:2010, endyear:2016}], blade: 'whhooo', chip: 'wqeooo', notes: '' },
     // { remotenumber: 2, icon: "TAP2-NLK-ALFA-02-433.png", tc: "TAP2-NLK-ALFA-02-433", box: 2, brands: ['ALFA ROMEO'], compatiblewith: [{brand:'ALFA ROMEO', model:'MiTo', startyear:2008, endyear:2016}], blade: 'whhooo', chip: 'wqeooo', notes: '' },
     // { remotenumber: 3, icon: "TAP3-TRK-AUDI-05-433-48.png", tc: "TAP3-TRK-AUDI-05-433-48", box: 3, brands: ['AUDI'], compatiblewith: [{brand:'AUDI', model:'A4 Coupe', startyear:2007, endyear:2009},{brand:'AUDI', model:'S4 Coupe', startyear:2007, endyear:2013},{brand:'AUDI', model: 'A4 Wagon', startyear:2005, endyear:2008},{brand:'AUDI', model:'S4 Wagon', startyear:2005, endyear:2008},{brand:'AUDI', model:'A4 Quattro', startyear:2005, endyear:2008},{brand:'AUDI', model:'S4 Quattro', startyear:2005, endyear:2008},{brand:'AUDI', model:'RS4 Wagon', startyear:2006, endyear:2008},{brand:'AUDI', model:'RS4 Quattro', startyear:2006, endyear:2008}], blade: 'whhooo', chip: 'wqeooo', notes: '' },
     // { remotenumber: 4, icon: "TAP4-TRK-AUDI-08-433.png", tc: "TAP4-TRK-AUDI-08-433", box: 4, brands: ['AUDI'], compatiblewith: [{brand:'AUDI', model:'Q5', startyear:2008, endyear:2014}], blade: 'whhooo', chip: 'wqeooo', notes: '' },
@@ -216,54 +619,3 @@ export class ResultPage implements OnInit {
     // { remotenumber: 154, icon: "TAP154-TRK-CHEV-05-433.png", tc: "TAP154-TRK-CHEV-05-433", box: 154, brands: ['HOLDEN'], compatiblewith: [{brand:'HOLDEN', model:'Commodore VF', startyear:2014, endyear:2017},{brand:'HOLDEN', model:'Malibu', startyear:2013, endyear:2016},{brand:'HOLDEN', model:'Cruze', startyear:2011, endyear:2016},], blade: 'whhooo', chip: 'wqeooo', notes: '' },
     // { remotenumber: 155, icon: "TAP155-NLK-DODG-06-433-1.png", tc: "TAP155-NLK-DODG-06-433-1", box: 155, brands: ['DODGE'], compatiblewith: [{brand:'DODGE', model:'Ram', startyear:2014, endyear:2018},], blade: 'whhooo', chip: 'wqeooo', notes: '' },
 
-
-  constructor(private navParamService: NavparamService, private http: HttpClient) {
-
-    this.choosecar = this.navParamService.getNavData();
-
-    // getting results of compatible remotes from database
-    this.http.get<{ [key: string]: Remote}>('https://tapsystock-a6450-default-rtdb.firebaseio.com/remotes.json')
-    .subscribe(resData => {
-
-      for (const key in resData){
-
-        let compatiblecars: any = resData[key].compitablecars;
-
-        if (compatiblecars.find(i => i.brand === this.choosecar.brand && i.model === this.choosecar.model && (this.choosecar.year >= i.startyear && this.choosecar.year <= i.endyear)))
-      {
-        const iconname = (resData[key].image);
-        firebase.storage().ref().child('images/remotes/' + iconname).getDownloadURL()
-        .then(response => {
-          this.compitableremotes.push({tapsycode:resData[key].tapsycode, boxnumber:resData[key].boxnumber, inbuildchip:resData[key].inbuildchip, 
-            inbuildblade:resData[key].inbuildblade, remotetype:resData[key].remotetype, compitablebrands:resData[key].compitablebrands, image: response, notes:resData[key].notes, 
-          compitablecars: resData[key].compitablecars})
-          this.compitableremotes.sort((a, b) => (a.boxnumber > b.boxnumber) ? 1 : -1)})
-        .catch(error => {console.log('error', error)})
-      }
-
-      }
-
-    });
-
-    // getting results of car programming details from database
-    this.http.get<{ [key: string]: ProgrammingDetails}>('https://tapsystock-a6450-default-rtdb.firebaseio.com/programming-details.json')
-    .subscribe(resData => {
-      
-
-      for (const key in resData){
-          
-          if (this.choosecar.brand == resData[key].brand && this.choosecar.model == resData[key].model && resData[key].years.find(i => i === this.choosecar.year))
-          {
-            this.programmingDetails = resData[key];
-          }
-      }
-    });
-
-  }
-
-  
-
-  ngOnInit() {
-  }
-
-}

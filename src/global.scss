@@ -28,3 +28,13 @@
 .ion-invaild.ion-touched ion-label {
     color: var(--ion-color-danger);
 }
+
+.alertBoxCancel {
+    color: red !important;
+}
+
+.ripple-parent {
+    position: relative;
+    overflow: hidden;
+    color: #5a1f8c;
+  }

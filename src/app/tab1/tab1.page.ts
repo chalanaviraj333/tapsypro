@@ -74,7 +74,7 @@ export class Tab1Page implements OnInit{
 
   addbutton() {
     
-    this.router.navigateByUrl('programmingdetails');
+    this.router.navigateByUrl('additems');
     // this.router.navigateByUrl('addremote');
     // this.router.navigateByUrl('addmodel');
   }

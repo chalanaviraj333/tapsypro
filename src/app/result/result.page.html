@@ -33,10 +33,12 @@
             <img src="./assets/img/icons/smartpro.png" width="70" height="60" />
           </ion-col>
           <ion-col size="4">
-            <img src="./assets/img/icons/working.png" width="35" height="35" /> <ion-badge class="worknotworkbadge" color="success">{{programmingDetails.smartProYes}}</ion-badge>
+            <img src="./assets/img/icons/working.png" width="35" height="35" (click)="_smartProYes()" /> 
+            <ion-badge class="worknotworkbadge" color="success">{{programmingDetails.smartProYes}}</ion-badge>
           </ion-col>
           <ion-col size="4">
-            <img src="./assets/img/icons/notworking.png" width="35" height="35" /> <ion-badge class="worknotworkbadge" color="danger">{{programmingDetails.smartProNo}}</ion-badge>
+            <img src="./assets/img/icons/notworking.png" width="35" height="35" (click)="_smartProNo()" /> 
+            <ion-badge class="worknotworkbadge" color="danger">{{programmingDetails.smartProNo}}</ion-badge>
           </ion-col>
         </ion-row>
         <ion-row>
@@ -44,10 +46,12 @@
             <img src="./assets/img/icons/autel.png" width="70" height="60" />
           </ion-col>
           <ion-col size="4">
-            <img src="./assets/img/icons/working.png" width="35" height="35" /> <ion-badge class="worknotworkbadge" color="success">{{programmingDetails.autelYes}}</ion-badge>
+            <img src="./assets/img/icons/working.png" width="35" height="35" (click)="_autelYes()" />
+             <ion-badge class="worknotworkbadge" color="success">{{programmingDetails.autelYes}}</ion-badge>
           </ion-col>
           <ion-col size="4">
-            <img src="./assets/img/icons/notworking.png" width="35" height="35" /> <ion-badge class="worknotworkbadge" color="danger">{{programmingDetails.autelNo}}</ion-badge>
+            <img src="./assets/img/icons/notworking.png" width="35" height="35" (click)="_autelNo()" /> 
+            <ion-badge class="worknotworkbadge" color="danger">{{programmingDetails.autelNo}}</ion-badge>
           </ion-col>
         </ion-row>
         <ion-row>
@@ -55,10 +59,12 @@
             <img src="./assets/img/icons/xtool.png" width="70" height="60" />
           </ion-col>
           <ion-col size="4">
-            <img src="./assets/img/icons/working.png" width="35" height="35" /> <ion-badge class="worknotworkbadge" color="success">{{programmingDetails.xtoolYes}}</ion-badge>
+            <img src="./assets/img/icons/working.png" width="35" height="35" (click)="_xtoolYes()" /> 
+            <ion-badge class="worknotworkbadge" color="success">{{programmingDetails.xtoolYes}}</ion-badge>
           </ion-col>
           <ion-col size="4">
-            <img src="./assets/img/icons/notworking.png" width="35" height="35" /> <ion-badge class="worknotworkbadge" color="danger">{{programmingDetails.xtoolNo}}</ion-badge>
+            <img src="./assets/img/icons/notworking.png" width="35" height="35" (click)="_xtoolNo()" />
+             <ion-badge class="worknotworkbadge" color="danger">{{programmingDetails.xtoolNo}}</ion-badge>
           </ion-col>
         </ion-row>
         <ion-row>
@@ -66,10 +72,12 @@
             <img src="./assets/img/icons/obdstar.png" width="70" height="60" />
           </ion-col>
           <ion-col size="4">
-            <img src="./assets/img/icons/working.png" width="35" height="35" /> <ion-badge color="success">{{programmingDetails.obdStarYes}}</ion-badge>
+            <img src="./assets/img/icons/working.png" width="35" height="35" (click)="_obdStarYes()" />
+            <ion-badge color="success">{{programmingDetails.obdStarYes}}</ion-badge>
           </ion-col>
           <ion-col size="4">
-            <img src="./assets/img/icons/notworking.png" width="35" height="35" /> <ion-badge color="danger">{{programmingDetails.obdStarNo}}</ion-badge>
+            <img src="./assets/img/icons/notworking.png" width="35" height="35" (click)="_obdStarNo()" /> 
+            <ion-badge color="danger">{{programmingDetails.obdStarNo}}</ion-badge>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -79,10 +87,12 @@
             <img src="./assets/img/icons/kdremotes.png" width="70" height="60" />
           </ion-col>
           <ion-col size="4">
-            <img src="./assets/img/icons/working.png" width="35" height="35" /> <ion-badge class="worknotworkbadge" color="success">{{programmingDetails.kdRemotesYes}}</ion-badge>
+            <img src="./assets/img/icons/working.png" width="35" height="35" (click)="_kdRemotesYes()" /> 
+            <ion-badge class="worknotworkbadge" color="success">{{programmingDetails.kdRemotesYes}}</ion-badge>
           </ion-col>
           <ion-col size="4">
-            <img src="./assets/img/icons/notworking.png" width="35" height="35" /> <ion-badge class="worknotworkbadge" color="danger">{{programmingDetails.kdRemotesNo}}</ion-badge>
+            <img src="./assets/img/icons/notworking.png" width="35" height="35" (click)="_kdRemotesNo()"/> 
+            <ion-badge class="worknotworkbadge" color="danger">{{programmingDetails.kdRemotesNo}}</ion-badge>
           </ion-col>
         </ion-row>
         <ion-row>
@@ -90,27 +100,31 @@
             <img src="./assets/img/icons/xhorseremotes.png" width="70" height="60" />
           </ion-col>
           <ion-col size="4">
-            <img src="./assets/img/icons/working.png" width="35" height="35" /> <ion-badge class="worknotworkbadge" color="success">{{programmingDetails.xHorseYes}}</ion-badge>
+            <img src="./assets/img/icons/working.png" width="35" height="35" (click)="_xHorseYes()" /> 
+            <ion-badge class="worknotworkbadge" color="success">{{programmingDetails.xHorseYes}}</ion-badge>
           </ion-col>
           <ion-col size="4">
-            <img src="./assets/img/icons/notworking.png" width="35" height="35" /> <ion-badge class="worknotworkbadge" color="danger">{{programmingDetails.xHorseNo}}</ion-badge>
+            <img src="./assets/img/icons/notworking.png" width="35" height="35" (click)="_xHorseNo()" />
+             <ion-badge class="worknotworkbadge" color="danger">{{programmingDetails.xHorseNo}}</ion-badge>
           </ion-col>
         </ion-row>
       </ion-grid>
       <ion-grid class="notes">
-          <ion-item lines="none">
+          <ion-item (click)="_carNotes()" lines="none">
             <ion-label color="dark"><b>NOTES</b></ion-label>
-            <ion-badge color="dark" slot="end">{{ programmingNotes?.length }}</ion-badge>
+            <ion-badge color="dark" slot="end">{{ programmingDetails.notes?.length }}</ion-badge>
           </ion-item>
       </ion-grid>
     </ion-card-content>
   </ion-card>
 
   
-  <ion-card *ngFor="let remote of compitableremotes">
+  <ion-card *ngFor="let remote of compitableremotes" class="originalremotes" >
     <img src="{{remote.image}}" width="320" height="320"/>
         <ion-card-header>
-          <ion-card-title>Remote</ion-card-title>
+          <ion-card-title>Original Remote
+            <img src="./assets/img/icons/{{remote.remotetype}}.png" width="40" height="40"/>
+          </ion-card-title>
         </ion-card-header>
         <ion-card-content>
             Tapsy Code: {{remote.tapsycode}}

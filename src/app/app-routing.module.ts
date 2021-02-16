@@ -19,10 +19,6 @@ const routes: Routes = [
     loadChildren: () => import('./result/result.module').then( m => m.ResultPageModule)
   },
   {
-    path: 'submodel',
-    loadChildren: () => import('./submodel/submodel.module').then( m => m.SubmodelPageModule)
-  },
-  {
     path: 'remotedetails',
     loadChildren: () => import('./remotedetails/remotedetails.module').then( m => m.RemotedetailsPageModule)
   },
@@ -35,10 +31,6 @@ const routes: Routes = [
     loadChildren: () => import('./addmodel/addmodel.module').then( m => m.AddmodelPageModule)
   },
   {
-    path: 'addcardetails',
-    loadChildren: () => import('./addcardetails/addcardetails.module').then( m => m.AddcardetailsPageModule)
-  },
-  {
     path: 'addcarbrand',
     loadChildren: () => import('./addcarbrand/addcarbrand.module').then( m => m.AddcarbrandPageModule)
   },
@@ -49,6 +41,26 @@ const routes: Routes = [
   {
     path: 'addprogrammingdetails',
     loadChildren: () => import('./addprogrammingdetails/addprogrammingdetails.module').then( m => m.AddprogrammingdetailsPageModule)
+  },
+  {
+    path: 'carnotes',
+    loadChildren: () => import('./carnotes/carnotes.module').then( m => m.CarnotesPageModule)
+  },
+  {
+    path: 'additems',
+    loadChildren: () => import('./additems/additems.module').then( m => m.AdditemsPageModule)
+  },
+  {
+    path: 'editcarmodel',
+    loadChildren: () => import('./editcarmodel/editcarmodel.module').then( m => m.EditcarmodelPageModule)
+  },
+  {
+    path: 'editremote',
+    loadChildren: () => import('./editremote/editremote.module').then( m => m.EditremotePageModule)
+  },
+  {
+    path: 'editcardetails',
+    loadChildren: () => import('./editcardetails/editcardetails.module').then( m => m.EditcardetailsPageModule)
   },
 ];
 @NgModule({
