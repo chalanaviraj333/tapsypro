@@ -59,8 +59,8 @@
 
       <ion-item lines="none">
         <ion-label color="danger" position="stacked">Car Model</ion-label>
-        <ion-select interface="popover" ngModel name="model" (ionChange)="onChangeModel($event)">
-          <ion-select-option *ngFor="let carmodel of selectedcarbrandmodels" [value]="selectedmodel">{{carmodel.model}}
+        <ion-select interface="popover" ngModel name="model" (ionChange)="onChangeCarModel($event)">
+          <ion-select-option *ngFor="let carmodel of selectedcarbrandmodels" [value]="selectedmodel">{{carmodel}}
           </ion-select-option>
         </ion-select>
       </ion-item>

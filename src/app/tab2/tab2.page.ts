@@ -39,6 +39,9 @@ export class Tab2Page {
 
   constructor(private navParamService: NavparamService, private router: Router, private http: HttpClient) {
 
+  }
+
+  ngOnInit() {
 
     this.http.get<{ [key: string]: Remote }>('https://tapsystock-a6450-default-rtdb.firebaseio.com/remotes.json')
       .subscribe(resData => {
@@ -59,11 +62,6 @@ export class Tab2Page {
       });
 
     this.searchedItem = this.remotes;
-
-  }
-
-  ngOnInit() {
-
   }
 
   _ionChange(event) {
@@ -73,8 +71,17 @@ export class Tab2Page {
 
     if (val && val.trim() != '') {
       this.searchedItem = this.searchedItem.filter((currentremote) => {
-        let searchWord = currentremote.tapsycode + currentremote.inbuildblade + currentremote.compitablebrands.toString();
-        return (searchWord.toLowerCase().indexOf(val.toLowerCase()) > -1);
+        if (currentremote.compitablebrands !== undefined){
+          let searchWord = currentremote.tapsycode + currentremote.inbuildblade + currentremote.compitablebrands.toString();
+          return (searchWord.toLowerCase().indexOf(val.toLowerCase()) > -1);
+        }
+        else
+        {
+          let searchWord = currentremote.tapsycode + currentremote.inbuildblade;
+          return (searchWord.toLowerCase().indexOf(val.toLowerCase()) > -1);
+
+        }
+        
       })
     }
   }

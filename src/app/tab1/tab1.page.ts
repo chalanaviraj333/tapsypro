@@ -34,6 +34,9 @@ export class Tab1Page implements OnInit {
 
     firebase.initializeApp(environment.firebase);
 
+  }
+
+  ngOnInit() {
     this.http.get<{ [key: string]: Brand }>('https://tapsystock-a6450-default-rtdb.firebaseio.com/car-brand.json')
       .subscribe(resData => {
         for (const key in resData) {
@@ -48,10 +51,6 @@ export class Tab1Page implements OnInit {
       });
 
     this.searchedItem = this.brands;
-
-  }
-
-  ngOnInit() {
 
   }
 

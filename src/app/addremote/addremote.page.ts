@@ -32,7 +32,7 @@ export class AddremotePage implements OnInit {
 
   public carbrands = [];
   public allcars: Model[] = [];
-  public selectedcarbrandmodels: Model[] = [];
+  public selectedcarbrandmodels = [];
   public selectedcarmodelyears: Array<number>;
   public addedcars: Model[] = [];
 
@@ -63,6 +63,7 @@ export class AddremotePage implements OnInit {
         });
 
       });
+
   }
 
   ngOnInit() {
@@ -72,15 +73,14 @@ export class AddremotePage implements OnInit {
     this.selectedcarbrandmodels = [];
     this.allcars.forEach(car => {
       if (car.brand == selectedcarbrand.target.value) {
-        this.selectedcarbrandmodels.push(car);
+        this.selectedcarbrandmodels.push(car.model);
       }
     });
   }
 
-  onChangeModel(selectedcarmodel) {
-    this.selectedcarmodelyears = [];
+  onChangeCarModel(selectedcarmodel){
     let selectedmodel: Model;
-    this.allcars.forEach(car => {
+    this.selectedcarbrandmodels.forEach(car => {
       if (car.model == selectedcarmodel.target.value) {
         selectedmodel = car;
       }
@@ -88,6 +88,7 @@ export class AddremotePage implements OnInit {
     for (let i = selectedmodel.startyear; i <= selectedmodel.endyear; i++) {
       this.selectedcarmodelyears.push(i);
     }
+
   }
 
 
@@ -112,7 +113,7 @@ export class AddremotePage implements OnInit {
   doneclicked() {
 
     this.errorList = [];
-    if (this.tapsyCode == undefined || this.boxNumber == undefined || this.remoteType == undefined || this.compitableBrands == undefined) {
+    if (this.tapsyCode == undefined || this.boxNumber == undefined || this.remoteType == undefined) {
       this.errorList.push('add remotes fields are empty!');
     }
     else {
@@ -125,6 +126,7 @@ export class AddremotePage implements OnInit {
 
       return this.http.post('https://tapsystock-a6450-default-rtdb.firebaseio.com/remotes.json', newRemote).subscribe(
         resData => {
+          console.log(resData);
         }
       );
 

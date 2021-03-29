@@ -10,9 +10,22 @@
 <ion-content>
 
   <ion-card>
+    <ion-chip *ngIf="lowstockYes">
+      <ion-label>Low Stock</ion-label>
+    </ion-chip>
     <img src="{{selectedremote.image}}" width="320" height="320" />
     <ion-card-header>
-      <ion-card-title>Box No: {{selectedremote.boxnumber}}</ion-card-title>
+      <ion-grid>
+        <ion-row no-padding text-center>
+          <ion-col size="8">
+            <ion-card-title>Box No: {{selectedremote.boxnumber}}</ion-card-title>
+          </ion-col>
+          <ion-col size="4">
+            <ion-button (click)="_lowStock()" disabled={{lowstockYes}}>Low Stock</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      
     </ion-card-header>
     <ion-card-content>
       <b>Tapsy Code: </b>{{selectedremote.tapsycode}}

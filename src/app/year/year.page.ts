@@ -18,15 +18,14 @@ export class YearPage implements OnInit {
   ) {
 
     this.car = this.navParamService.getNavData();
+  }
+
+  ngOnInit() {
 
     for (let i = this.car.startyear; i <= this.car.endyear; i++) {
       this.years.push(i);
     }
 
-
-  }
-
-  ngOnInit() {
   }
 
   onSelect(year) {

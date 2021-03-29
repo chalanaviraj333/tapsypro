@@ -118,6 +118,7 @@
     </ion-card-content>
   </ion-card>
 
+  <p *ngIf="isFetching">{{printerror}}</p>
 
   <ion-card *ngFor="let remote of compitableremotes" class="originalremotes">
     <img src="{{remote.image}}" width="320" height="320" />
