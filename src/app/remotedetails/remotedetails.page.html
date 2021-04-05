@@ -1,5 +1,5 @@
 <ion-header translucent>
-  <ion-toolbar color="primary">
+  <ion-toolbar color="bladed">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
@@ -9,7 +9,7 @@
 
 <ion-content>
 
-  <ion-card>
+  <!-- <ion-card>
     <ion-chip *ngIf="lowstockYes">
       <ion-label>Low Stock</ion-label>
     </ion-chip>
@@ -48,6 +48,62 @@
         {{selectedremote.notes}}
       </ion-text>
     </ion-card-content>
-  </ion-card>
+  </ion-card> -->
+
+  <ion-grid>
+
+    <div id="lowStockIndicate">
+      <ion-chip *ngIf="lowstockYes" color="danger">
+        <ion-label color="danger">Low Stock</ion-label>
+      </ion-chip>
+
+    </div>
+
+    <ion-card>
+      <ion-row no-padding text-center>
+        <img src="{{selectedremote.image}}" width="320" height="320" />
+      </ion-row>
+
+      <div id="remoteheader">
+        <ion-row no-padding text-center>
+          <ion-col size="7">
+            <h2><b>Box No: {{selectedremote.boxnumber}}</b></h2>
+          </ion-col>
+          <ion-col size="5">
+            <ion-button id="lowStockButton" fill="solid" (click)="_lowStock()" disabled={{lowstockYes}}>Low Stock</ion-button>
+          </ion-col>
+        </ion-row>
+      </div>
+    </ion-card>
+
+
+
+    <ion-card>
+      <div id="remotedetails">
+        <b>Tapsy Code: </b>{{selectedremote.tapsycode}}
+        <br>
+        <b>Blade: </b>{{selectedremote.inbuildblade}}
+        <br>
+        <b>Inbuild Chip: </b>{{selectedremote.inbuildchip}}
+        <br>
+        <b>Compitable with: </b>
+        <br>
+        <ul *ngFor="let car of selectedremote.compitablecars">
+          <li>
+            <ion-text color="secondary">{{car.brand}} {{car.model}} {{car.startyear}} - {{car.endyear}}</ion-text>
+          </li>
+        </ul>
+        <br>
+        <b>Notes: </b>
+        <br>
+        <ion-text color="danger">
+          {{selectedremote.notes}}
+        </ion-text>
+
+      </div>
+
+    </ion-card>
+
+  </ion-grid>
 
 </ion-content>

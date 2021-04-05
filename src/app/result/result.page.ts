@@ -3,8 +3,7 @@ import { NavparamService } from '../navparam.service';
 import { HttpClient } from '@angular/common/http';
 import { AlertController } from '@ionic/angular';
 
-import firebase from 'firebase/app';
-import 'firebase/storage';
+
 import { Router } from '@angular/router';
 
 interface Remote {
@@ -76,19 +75,16 @@ export class ResultPage implements OnInit {
 
           let compatiblecars: any = resData[key].compitablecars;
 
-          if (compatiblecars.find(i => i.brand === this.choosecar.brand && i.model === this.choosecar.model && (this.choosecar.year >= i.startyear && this.choosecar.year <= i.endyear))) {
-            const iconname = (resData[key].image);
-            firebase.storage().ref().child('images/remotes/' + iconname).getDownloadURL()
-              .then(response => {
+          if (compatiblecars !== undefined && compatiblecars.find(i => i.brand === this.choosecar.brand && i.model === this.choosecar.model && (this.choosecar.year >= i.startyear && this.choosecar.year <= i.endyear))) {
+    
                 this.compitableremotes.push({
                   tapsycode: resData[key].tapsycode, boxnumber: resData[key].boxnumber, inbuildchip: resData[key].inbuildchip,
-                  inbuildblade: resData[key].inbuildblade, remotetype: resData[key].remotetype, compitablebrands: resData[key].compitablebrands, image: response, notes: resData[key].notes,
+                  inbuildblade: resData[key].inbuildblade, remotetype: resData[key].remotetype, compitablebrands: resData[key].compitablebrands, image: resData[key].image, notes: resData[key].notes,
                   compitablecars: resData[key].compitablecars
                 })
                 this.compitableremotes.sort((a, b) => (a.boxnumber > b.boxnumber) ? 1 : -1)
                 this.isFetching = false;
-              })
-              .catch(error => { console.log('error', error) })
+        
           }
         }
 

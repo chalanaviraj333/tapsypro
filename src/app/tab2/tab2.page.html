@@ -1,13 +1,18 @@
 <ion-header [translucent]="true">
-  <ion-toolbar color="primary">
+  <ion-toolbar color="bladed">
     <ion-title>All Remotes</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="refreshImagesButton()" disabled>
+        <ion-icon slot="icon-only" ios="refresh-outline" md="refresh-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 
 </ion-header>
 
 <ion-content [fullscreen]="true">
 
-  <ion-searchbar #search debounce="500" (ionChange)="_ionChange($event)" showCancelButton="never"></ion-searchbar>
+  <ion-searchbar #search debounce="500" (ionChange)="_ionChange($event)" placeholder="Enter Brand,Blade,Code or Box no" showCancelButton="never"></ion-searchbar>
 
 
   <ion-card *ngFor="let remote of searchedItem" (click)="onClick(x = remote.tapsycode)"
@@ -16,7 +21,7 @@
       <ion-card-content>
         <ion-row no-padding>
           <ion-col size="6" text-center>
-            <ion-card-header><b>BOX: {{remote.boxnumber}}</b></ion-card-header>
+            <ion-card-subtitle color={{remote.remotetype}} id="boxNumber">BOX: {{remote.boxnumber}}</ion-card-subtitle>
             <ion-card-subtitle color="medium">BLADE:{{remote.inbuildblade}}</ion-card-subtitle>
             <ion-card-subtitle color="medium">CHIP:{{remote.inbuildchip}}</ion-card-subtitle>
             <ion-card-subtitle color="medium">CODE:{{remote.tapsycode}}</ion-card-subtitle>

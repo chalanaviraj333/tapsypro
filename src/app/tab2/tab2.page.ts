@@ -4,11 +4,9 @@ import { Router } from '@angular/router';
 import { IonSearchbar } from '@ionic/angular';
 import { NavparamService } from '../navparam.service';
 
-import firebase from 'firebase/app';
-import 'firebase/storage';
-
 
 interface Remote {
+  key: string;
   tapsycode: string;
   boxnumber: number;
   inbuildchip: string;
@@ -45,18 +43,32 @@ export class Tab2Page {
 
     this.http.get<{ [key: string]: Remote }>('https://tapsystock-a6450-default-rtdb.firebaseio.com/remotes.json')
       .subscribe(resData => {
+        // for (const key in resData) {
+        //   if (resData.hasOwnProperty(key)) {
+        //     const iconname = (resData[key].image);
+        //     firebase.storage().ref().child('images/remotes/' + iconname).getDownloadURL()
+        //       .then(response => {
+        //         this.remotes.push({ key,
+        //           tapsycode: resData[key].tapsycode, boxnumber: resData[key].boxnumber, inbuildchip: resData[key].inbuildchip,
+        //           inbuildblade: resData[key].inbuildblade, remotetype: resData[key].remotetype, compitablebrands: resData[key].compitablebrands, image: response, notes: resData[key].notes,
+        //           compitablecars: resData[key].compitablecars
+        //         })
+        //         this.remotes.sort((a, b) => (a.boxnumber > b.boxnumber) ? 1 : -1)
+        //       })
+        //       .catch(error => { console.log('error', error) })
+        //   }
+        // }
+
+
         for (const key in resData) {
-          const iconname = (resData[key].image);
-          firebase.storage().ref().child('images/remotes/' + iconname).getDownloadURL()
-            .then(response => {
-              this.remotes.push({
-                tapsycode: resData[key].tapsycode, boxnumber: resData[key].boxnumber, inbuildchip: resData[key].inbuildchip,
-                inbuildblade: resData[key].inbuildblade, remotetype: resData[key].remotetype, compitablebrands: resData[key].compitablebrands, image: response, notes: resData[key].notes,
-                compitablecars: resData[key].compitablecars
-              })
-              this.remotes.sort((a, b) => (a.boxnumber > b.boxnumber) ? 1 : -1)
-            })
-            .catch(error => { console.log('error', error) })
+          if (resData.hasOwnProperty(key)) {
+                this.remotes.push({ key,
+                  tapsycode: resData[key].tapsycode, boxnumber: resData[key].boxnumber, inbuildchip: resData[key].inbuildchip,
+                  inbuildblade: resData[key].inbuildblade, remotetype: resData[key].remotetype, compitablebrands: resData[key].compitablebrands, image: resData[key].image, notes: resData[key].notes,
+                  compitablecars: resData[key].compitablecars
+                })
+                this.remotes.sort((a, b) => (a.boxnumber > b.boxnumber) ? 1 : -1)
+          }
         }
 
       });
@@ -71,17 +83,16 @@ export class Tab2Page {
 
     if (val && val.trim() != '') {
       this.searchedItem = this.searchedItem.filter((currentremote) => {
-        if (currentremote.compitablebrands !== undefined){
+        if (currentremote.compitablebrands !== undefined) {
           let searchWord = currentremote.tapsycode + currentremote.inbuildblade + currentremote.compitablebrands.toString();
           return (searchWord.toLowerCase().indexOf(val.toLowerCase()) > -1);
         }
-        else
-        {
+        else {
           let searchWord = currentremote.tapsycode + currentremote.inbuildblade;
           return (searchWord.toLowerCase().indexOf(val.toLowerCase()) > -1);
 
         }
-        
+
       })
     }
   }
@@ -99,6 +110,21 @@ export class Tab2Page {
 
     this.navParamService.setNavData(selectedremote);
     this.router.navigateByUrl('remotedetails');
+
+  }
+
+  refreshImagesButton(){
+
+    this.remotes.forEach(remote => {
+
+      this.http.put(`https://tapsystock-a6450-default-rtdb.firebaseio.com/remotes/${remote.key}.json`,
+        {...remote, key: null}).subscribe(
+          resData => {
+        console.log(resData);
+        }
+    );
+      
+    });
 
   }
 

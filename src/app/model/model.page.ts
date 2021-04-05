@@ -7,6 +7,7 @@ import firebase from 'firebase/app';
 import 'firebase/storage';
 
 interface Model {
+  key: string;
   brand: string;
   model: string;
   icon: string;
@@ -38,21 +39,33 @@ export class ModelPage implements OnInit {
 
     this.http.get<{ [key: string]: Model }>('https://tapsystock-a6450-default-rtdb.firebaseio.com/car-model.json')
       .subscribe(resData => {
-        for (const key in resData) {
-          const iconname = (resData[key].icon);
-          if (resData[key].brand == this.brand){
-            firebase.storage().ref().child('images/carmodels/' + iconname).getDownloadURL()
-            .then(response => {
-              this.models.push({ brand: resData[key].brand, model: resData[key].model, startyear: resData[key].startyear, endyear: resData[key].endyear, icon: response })
-                this.models.sort((a, b) => (a.model > b.model) ? 1 : -1)
-                this.isFetching = false;
-        
+        // for (const key in resData) {
+        //   const iconname = (resData[key].icon);
+        //   if (resData[key].brand == this.brand){
+        //     firebase.storage().ref().child('images/carmodels/' + iconname).getDownloadURL()
+        //     .then(response => {
+        //       this.models.push({ brand: resData[key].brand, model: resData[key].model, startyear: resData[key].startyear, endyear: resData[key].endyear, icon: response })
+        //         this.models.sort((a, b) => (a.model > b.model) ? 1 : -1)
+        //         this.isFetching = false;
 
-            })
-          
+
+        //     })
+
+        //   }
+        // }
+
+        for (const key in resData) {
+          if (resData.hasOwnProperty(key)) {
+            if (resData[key].brand == this.brand) {
+                  this.models.push({ key, brand: resData[key].brand, model: resData[key].model, startyear: resData[key].startyear, endyear: resData[key].endyear, icon: resData[key].icon })
+                  this.models.sort((a, b) => (a.model > b.model) ? 1 : -1)
+                  this.isFetching = false;
+
+            }
           }
         }
       });
+
   }
 
 
@@ -71,6 +84,21 @@ export class ModelPage implements OnInit {
       this.router.navigateByUrl('year');
 
     }
+
+  }
+
+  refreshImagesButton() {
+
+    this.models.forEach(model => {
+
+      this.http.put(`https://tapsystock-a6450-default-rtdb.firebaseio.com/car-model/${model.key}.json`,
+        { ...model, key: null }).subscribe(
+          resData => {
+            console.log(resData);
+          }
+        );
+
+    });
 
   }
 

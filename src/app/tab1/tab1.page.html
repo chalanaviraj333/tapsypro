@@ -1,8 +1,11 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button (click)="addbutton()">
-        <ion-icon slot="icon-only" ios="add-circle-outline" md="add-circle"></ion-icon>
+      <ion-button (click)="refreshImagesButton()" disabled>
+        <ion-icon slot="icon-only" ios="refresh-outline" md="refresh-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-title>Car Brands</ion-title>
@@ -13,6 +16,12 @@
 <ion-content [fullscreen]="true">
 
   <ion-searchbar #search debounce="500" (ionChange)="_ionChange($event)" showCancelButton="never"></ion-searchbar>
+
+  <div id="errorPrint">
+    <ion-chip *ngIf="errorsinImages">
+      <ion-label color="danger">Loading error in images</ion-label>
+    </ion-chip>
+  </div>
 
   <ion-grid>
     <ion-row>
