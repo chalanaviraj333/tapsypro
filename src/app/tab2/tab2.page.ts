@@ -59,6 +59,8 @@ export class Tab2Page {
         //   }
         // }
 
+      // })
+
 
         for (const key in resData) {
           if (resData.hasOwnProperty(key)) {

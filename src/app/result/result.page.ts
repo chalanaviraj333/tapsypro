@@ -39,6 +39,34 @@ interface ProgrammingDetails {
   notes: Array<string>;
 }
 
+interface ModelPrices {
+  key: string;
+  brand: string;
+  model: string;
+  icon: string;
+  modelyears: number[];
+  selectedyears: number[];
+  programmingMethod: string;
+  accessMethod: string;
+  allLostRemoteLocation: number;
+  allLostRemoteShop: number;
+  allLostMFKLocation: number;
+  allLostMFKShop: number;
+  spareRemoteLocation: number;
+  spareRemoteShop: number;
+  spareMFKLocation: number;
+  spareMFKShop: number;
+  ignitionRepairLocation: number;
+  ignitionRepairShop: number;
+  keyShellLocation: number;
+  keyShellShop: number;
+  gainingAccessLocation: number;
+  gainingAccessShop: number;
+  allLockChangeLocation: number;
+  allLockChangeShop: number;
+
+}
+
 
 @Component({
   selector: 'app-result',
@@ -53,6 +81,8 @@ export class ResultPage implements OnInit {
   public choosecar: any;
   public compitableremotes: Array<Remote> = [];
   public programmingDetails: ProgrammingDetails = { brand: 'N/A', model: 'N/A', years: [], blade: 'N/A', chip: 'N/A', smartProYes: 0, smartProNo: 0, autelYes: 0, autelNo: 0, xtoolYes: 0, xtoolNo: 0, obdStarYes: 0, obdStarNo: 0, kdRemotesYes: 0, kdRemotesNo: 0, xHorseYes: 0, xHorseNo: 0, notes: [] };
+  public modelPrices: ModelPrices = { key: null,
+    brand: null, model: null, icon: null, modelyears: null, selectedyears: null, programmingMethod: 'N/A', accessMethod: 'N/A', allLostRemoteLocation: 0, allLostRemoteShop: 0, allLostMFKLocation: 0, allLostMFKShop: 0, spareRemoteLocation: 0, spareRemoteShop: 0, spareMFKLocation: 0, spareMFKShop: 0, ignitionRepairLocation: 0, ignitionRepairShop: 0, keyShellLocation: 0, keyShellShop: 0, gainingAccessLocation: 0, gainingAccessShop: 0, allLockChangeLocation: 0, allLockChangeShop: 0 };
   public firebaseKey: string;
   public foundFromDatabase = false;
   printerror = 'Loading';
@@ -133,6 +163,46 @@ export class ResultPage implements OnInit {
         }
 
       });
+
+
+      // getting car model prices from the database
+    this.http.get<{ [key: string]: ModelPrices }>('https://tapsystock-a6450-default-rtdb.firebaseio.com/car-model-prices.json')
+    .subscribe(resData => {
+      for (const key in resData) {
+
+        if (resData.hasOwnProperty(key)) {
+          if (this.choosecar.brand == resData[key].brand && this.choosecar.model == resData[key].model && resData[key].modelyears.find(i => i === this.choosecar.year)) 
+          {
+            this.modelPrices.programmingMethod = resData[key].programmingMethod,
+            this.modelPrices.accessMethod = resData[key].accessMethod,
+            this.modelPrices.allLostRemoteLocation = resData[key].allLostRemoteLocation,
+            this.modelPrices.allLostRemoteShop =resData[key].allLostRemoteShop,
+            this.modelPrices.allLostMFKLocation = resData[key].allLostMFKLocation,
+            this.modelPrices.allLostMFKShop =resData[key].allLostMFKShop,
+            this.modelPrices.spareRemoteLocation = resData[key].spareRemoteLocation,
+            this.modelPrices.spareRemoteShop = resData[key].spareRemoteShop,
+            this.modelPrices.spareMFKLocation = resData[key].spareMFKLocation,
+            this.modelPrices.spareMFKShop = resData[key].spareMFKShop,
+            this.modelPrices.ignitionRepairLocation = resData[key].ignitionRepairLocation,
+            this.modelPrices.ignitionRepairShop =resData[key].ignitionRepairShop,
+            this.modelPrices.keyShellLocation = resData[key].keyShellLocation, 
+            this.modelPrices.keyShellShop = resData[key].keyShellShop,
+            this.modelPrices.gainingAccessLocation = resData[key].gainingAccessLocation,
+            this.modelPrices.gainingAccessShop = resData[key].gainingAccessShop,
+            this.modelPrices.allLockChangeLocation = resData[key].allLockChangeLocation,
+            this.modelPrices.allLockChangeShop = resData[key].allLockChangeShop
+            
+          }
+
+          else {
+  
+          }
+
+        }
+      }
+
+
+    });
 
   }
 

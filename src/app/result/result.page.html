@@ -8,9 +8,10 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-card class="cardetails">
+  <div class="bodycontent">
+
     <ion-card-subtitle color="primary">{{choosecar.brand}} {{choosecar.model}} {{choosecar.year}}</ion-card-subtitle>
-    <ion-card-content>
+
       <ion-grid class="chipblade">
         <ion-row>
           <ion-col size="3">
@@ -27,6 +28,79 @@
           </ion-col>
         </ion-row>
       </ion-grid>
+
+      <ion-grid class="cardetails">
+        <h4>CAR DETAILS / PRICES</h4>
+
+        <ion-item lines="none">
+          <ion-label>
+            All Key Lost Method: {{modelPrices.programmingMethod}}
+          </ion-label>
+        </ion-item>
+
+        <ion-item lines="none">
+          <ion-label>
+            Gaining Access Method: {{modelPrices.accessMethod}}
+          </ion-label>
+        </ion-item>
+
+        <ion-row>
+          <ion-col size="6"></ion-col>
+          <ion-col size="3">location</ion-col>
+          <ion-col size="3">shop</ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="6">All Key Lost Remote</ion-col>
+          <ion-col size="3">{{modelPrices.allLostRemoteLocation}}</ion-col>
+          <ion-col size="3">{{modelPrices.allLostRemoteShop}}</ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="6">All Key Lost MFK</ion-col>
+          <ion-col size="3">{{modelPrices.allLostMFKLocation}}</ion-col>
+          <ion-col size="3">{{modelPrices.allLostMFKShop}}</ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="6">Spare Remote</ion-col>
+          <ion-col size="3">{{modelPrices.spareRemoteLocation}}</ion-col>
+          <ion-col size="3">{{modelPrices.spareRemoteShop}}</ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="6">Spare MFK</ion-col>
+          <ion-col size="3">{{modelPrices.spareMFKLocation}}</ion-col>
+          <ion-col size="3">{{modelPrices.spareMFKShop}}</ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="6">Ignition Repair</ion-col>
+          <ion-col size="3">{{modelPrices.ignitionRepairLocation}}</ion-col>
+          <ion-col size="3">{{modelPrices.ignitionRepairShop}}</ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="6">Key Shell Repair</ion-col>
+          <ion-col size="3">{{modelPrices.keyShellLocation}}</ion-col>
+          <ion-col size="3">{{modelPrices.keyShellShop}}</ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="6">Gaining Access</ion-col>
+          <ion-col size="3">{{modelPrices.gainingAccessLocation}}</ion-col>
+          <ion-col size="3">{{modelPrices.gainingAccessShop}}</ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="6">All Lock Change</ion-col>
+          <ion-col size="3">{{modelPrices.allLockChangeLocation}}</ion-col>
+          <ion-col size="3">{{modelPrices.allLockChangeShop}}</ion-col>
+        </ion-row>
+
+      </ion-grid>
+
+
       <ion-grid class="obdtools">
         <ion-row>
           <ion-col size="4">
@@ -115,8 +189,10 @@
           <ion-badge color="dark" slot="end">{{ programmingDetails.notes?.length }}</ion-badge>
         </ion-item>
       </ion-grid>
-    </ion-card-content>
-  </ion-card>
+
+    </div>
+
+
 
   <p *ngIf="isFetching">{{printerror}}</p>
 
